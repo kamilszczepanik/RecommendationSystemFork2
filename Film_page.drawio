@@ -1,0 +1,46 @@
+<mxfile host="app.diagrams.net" modified="2024-04-06T08:53:15.166Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="gLbaNfGDnbqLKg2JVkxF" version="24.2.0" type="device">
+  <diagram name="Strona-1" id="GsQTxjTEILLFrlVCHDj-">
+    <mxGraphModel dx="1050" dy="530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-1" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="210" width="480" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-2" value="Logo" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="10" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-3" value="Wyszukaj" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="10" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-4" value="Zaloguj się" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="10" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-5" value="" style="endArrow=none;html=1;rounded=0;exitX=-0.003;exitY=0.106;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.002;entryY=0.106;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="CqB0r5uvWZWReCjEy1XH-1" target="CqB0r5uvWZWReCjEy1XH-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="300" as="sourcePoint" />
+            <mxPoint x="440" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-8" value="Tytuł" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="70" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-9" value="Ocena" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="140" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-18" value="Add Rev" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="190" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-20" value="Celebryci" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="280" width="160" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-21" value="Recenzje" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="CqB0r5uvWZWReCjEy1XH-22" value="Opis Filmu" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="414" y="140" width="266" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
