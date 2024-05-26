@@ -58,7 +58,6 @@ CREATE TABLE GenreDetails (
 CREATE TABLE Genre (
     genre_id INT NOT NULL,
     movie_id INT NOT NULL,
-    function TEXT NOT NULL,
     PRIMARY KEY (genre_id, movie_id)
 );
 
@@ -66,8 +65,7 @@ CREATE TABLE Genre (
 CREATE TABLE MovieCast (
     cast_id SERIAL PRIMARY KEY,
     movie_id INT NOT NULL,
-    celebrity_id INT NOT NULL,
-    function TEXT NOT NULL
+    celebrity_id INT NOT NULL
 );
 
 -- Tworzenie tabeli CastDetails
@@ -79,8 +77,7 @@ CREATE TABLE CastDetails (
 -- Tworzenie tabeli Directors
 CREATE TABLE Directors (
     director_id SERIAL PRIMARY KEY,
-    movie_id INT NOT NULL,
-    function TEXT NOT NULL
+    movie_id INT NOT NULL
 );
 
 -- Tworzenie tabeli DirectorsDetails
