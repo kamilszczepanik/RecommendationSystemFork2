@@ -2,6 +2,7 @@ from django.db import models
 from user_app.models import User
 from movie_app.models import Movie
 
+
 # Create your models here.
 class Review(models.Model):
     id = models.AutoField(primary_key=True)
