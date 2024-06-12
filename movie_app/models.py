@@ -12,8 +12,7 @@ class Movie(models.Model):
     vote_count = models.IntegerField()
     pg_rating = models.CharField(max_length=10)
     duration = models.IntegerField()
-    cast = models.ManyToManyField('Celebrity', related_name='movies')
-
+    cast = models.ManyToManyField('Cast', related_name='movies')
 
     def __str__(self):
         return self.title
@@ -39,8 +38,7 @@ class Movie(models.Model):
         return movies.order_by(sort_by)
 
 
-
-class Celebrity(models.Model):
+class Cast(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
 
