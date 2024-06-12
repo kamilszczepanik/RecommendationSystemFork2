@@ -3,6 +3,7 @@ from user_app.models import Users
 from movie_app.models import Movies
 
 
+
 # Create your models here.
 class Reviews(models.Model):
     review_id = models.AutoField(primary_key=True)
