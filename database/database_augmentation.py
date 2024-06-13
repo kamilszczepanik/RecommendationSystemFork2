@@ -20,6 +20,18 @@ def process_and_select_top_100(file_path):
 
     top_100['rating_scaled'] = (5 * top_100['rating'] / 11).round(2)
     top_100.drop(columns=['rating'], inplace=True)
+
+    # Konwersja stars_id i directors_id na liczby całkowite
+    top_100['stars_id'] = top_100['stars_id'].apply(
+        lambda x: [int(id[2:]) for id in str(x).split(',') if isinstance(x, str) and id])
+    top_100['directors_id'] = top_100['directors_id'].apply(
+        lambda x: [int(id[2:]) for id in str(x).split(',') if isinstance(x, str) and id])
+
+    # Przypisanie unikalnych identyfikatorów dla gatunków
+    genres = top_100['genre'].str.split(', ', expand=True).stack().unique()
+    genre_id_mapping = {genre: idx + 1 for idx, genre in enumerate(genres)}
+    top_100['Genre_id'] = top_100['genre'].apply(lambda x: [genre_id_mapping[genre] for genre in x.split(', ')])
+
     return top_100
 
 
