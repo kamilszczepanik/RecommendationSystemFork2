@@ -1,17 +1,20 @@
 from django.db import models
-from user_app.models import User
-from movie_app.models import Movie
+from user_app.models import Users
+from movie_app.models import Movies
 
 
 # Create your models here.
-class Review(models.Model):
-    id = models.AutoField(primary_key=True)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    rating = models.DecimalField(max_digits=2, decimal_places=1)
-    review = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+class Reviews(models.Model):
+    review_id = models.AutoField(primary_key=True)
+    movie = models.ForeignKey(Movies, models.DO_NOTHING)
+    user = models.ForeignKey(Users, models.DO_NOTHING)
+    rating = models.IntegerField()
+    review_date = models.DateField()
+    review_text = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'reviews'
 
     def __str__(self):
         return self.movie.title + ' - ' + self.author
@@ -34,12 +37,15 @@ class Review(models.Model):
         return reviews.order_by(sort_by)
 
 
-class Comment(models.Model):
-    id = models.AutoField(primary_key=True)
-    review = models.ForeignKey(Review, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+class Moviecomments(models.Model):
+    comment_id = models.AutoField(primary_key=True)
+    review = models.ForeignKey(Reviews, models.DO_NOTHING)
+    user = models.ForeignKey(Users, models.DO_NOTHING)
+    comment_text = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'moviecomments'
 
     def __str__(self):
         return self.review.movie.title + ' - ' + self.user.username

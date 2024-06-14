@@ -1,15 +1,18 @@
 from django.db import models
-from movie_app.models import Movie
+from movie_app.models import Movies
 
 # Create your models here.
-class User(models.Model):
-    id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=100)
-    email = models.EmailField()
-    password = models.CharField(max_length=100)
-    date_joined = models.DateTimeField(auto_now_add=True)
-    is_admin = models.BooleanField(default=False)
-    favorite_movies = models.ManyToManyField(Movie, related_name='favorited_by')
+class Users(models.Model):
+    user_id = models.AutoField(primary_key=True)
+    login = models.TextField()
+    password_hash = models.BinaryField()
+    salt = models.BinaryField()
+    display_name = models.TextField()
+    user_role = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'users'
 
     def __str__(self):
         return self.username
@@ -36,3 +39,13 @@ class User(models.Model):
     def sort_users(self, username, email, sort_by='date_joined'):
         users = self.query_users(username=username, email=email)
         return users.order_by(sort_by)
+
+
+class Favouritemovies(models.Model):
+    favourite_id = models.AutoField(primary_key=True)
+    movie = models.ForeignKey(Movies, models.DO_NOTHING)
+    user = models.ForeignKey(Users, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'favouritemovies'
