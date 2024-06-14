@@ -2,23 +2,22 @@ from django.db import models
 
 
 # Create your models here.
-class Movie(models.Model):
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=100)
-    genre = models.CharField(max_length=100)
-    description = models.TextField()
-    year = models.IntegerField()
-    rating = models.DecimalField(max_digits=2, decimal_places=1)
-    vote_count = models.IntegerField()
-    pg_rating = models.CharField(max_length=10)
-    duration = models.IntegerField()
-    cast = models.ManyToManyField('Cast', related_name='movies')
+class Movies(models.Model):
+    movie_id = models.AutoField(primary_key=True)
+    tittle = models.TextField()
+    production_year = models.IntegerField(blank=True, null=True)
+    rating = models.FloatField(blank=True, null=True)
+    certificate = models.TextField(blank=True, null=True)
+    duration = models.IntegerField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    votes = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'movies'
 
     def __str__(self):
-        return self.title
-
-    def get_cast(self):
-        return self.cast.all()
+        return self.tittle
 
     def get_movie(self, id):
         return self.objects.get(pk=id)
@@ -38,15 +37,55 @@ class Movie(models.Model):
         return movies.order_by(sort_by)
 
 
-class Cast(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+class Directors(models.Model):
+    director = models.ForeignKey('Directorsdetails', models.DO_NOTHING)
+    movie = models.ForeignKey('Movies', models.DO_NOTHING)
 
-    def __str__(self):
-        return self.name
+    class Meta:
+        managed = False
+        db_table = 'directors'
 
-    def get_movies(self):
-        return self.movies.all()
 
-    def get_celebrity(self, id):
-        return self.objects.get(pk=id)
+class Directorsdetails(models.Model):
+    director_id = models.AutoField(primary_key=True)
+    display_name = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'directorsdetails'
+
+
+class Genre(models.Model):
+    genre = models.ForeignKey('Genredetails', models.DO_NOTHING)
+    movie = models.ForeignKey('Movies', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'genre'
+
+
+class Genredetails(models.Model):
+    genre_id = models.AutoField(primary_key=True)
+    display_name = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'genredetails'
+
+
+class Moviecast(models.Model):
+    celebrity = models.ForeignKey('Moviecastdetails', models.DO_NOTHING)
+    movie = models.ForeignKey('Movies', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'moviecast'
+
+
+class Moviecastdetails(models.Model):
+    celebrity_id = models.AutoField(primary_key=True)
+    display_name = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'moviecastdetails'
