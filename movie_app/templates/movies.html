@@ -22,6 +22,7 @@
         <th>genre</th>
         <th>director</th>
         <th>cast</th>
+        <th>reviews</th>
     </tr>
     {% for movie_details in movies_details %}
     <tr>
@@ -46,6 +47,12 @@
         <td>
             {% for cast in movie_details.casts %}
                 {{ cast.display_name }}
+            {% endfor %}
+        </td>
+        <td>
+            {% for review in movie_details.reviews %}
+            <b>{{ review.user }}</b>
+            <p>{{ review.review_text }}</p>
             {% endfor %}
         </td>
     </tr>
