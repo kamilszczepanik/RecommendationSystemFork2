@@ -17,12 +17,12 @@
 <body>
 <nav>
     <a href="/">Home</a>
-    <a href="/movies">Movies</a>
-    <a href="/movies/details">Movies Details</a>
-    <a href="/users">Users</a>
-    <a href="/users/details">User Details</a>
-    <a href="/users/login">Login</a>
-    <a href="/about">About</a>
+    <a href="{% url 'movie_app:movies' %}">Movies</a>
+    <a href="{% url 'movie_app:sample_movie_details' %}">Movies Details</a>
+    <a href="{% url 'user_app:users' %}">Users</a>
+    <a href="{% url 'user_app:sample_user_details' %}">User Details</a>
+    <a href="{% url 'user_app:login' %}">Login</a>
+    <a href="{% url 'about' %}">About</a>
 </nav>
 <main>
     {% block content %}

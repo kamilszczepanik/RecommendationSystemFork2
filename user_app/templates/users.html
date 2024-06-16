@@ -22,7 +22,11 @@ Users
     {% for user in users %}
     <tr>
         <td>{{ user.user_id }}</td>
-        <td>{{ user.login }}</td>
+        <td>
+            <a href="{% url 'user_app:user_details' user_id=user.user_id %}">
+                {{ user.login }}
+            </a>
+        </td>
         <td>{{ user.password_hash }}</td>
         <td>{{ user.salt }}</td>
         <td>{{ user.display_name }}</td>

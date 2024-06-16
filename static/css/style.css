@@ -33,7 +33,7 @@ p {
 
 a {
     text-decoration: none;
-    color: #81dbb8;
+    color: #ffffff;
     padding: 2rem;
 }
 
@@ -74,4 +74,9 @@ tr:nth-child(odd) {
 
 table td {
     color: black;
+}
+
+table a {
+    color: #3a3f79;
+    font-style: italic;
 }

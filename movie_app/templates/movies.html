@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Movies
+Movies
 {% endblock %}
 
 {% block content %}
@@ -27,7 +27,11 @@
     {% for movie_details in movies_details %}
     <tr>
         <td>{{ movie_details.movie.movie_id }}</td>
-        <td>{{ movie_details.movie.tittle }}</td>
+        <td>
+            <a href="{% url 'movie_app:movie_details' movie_id=movie_details.movie.movie_id %}">
+                {{ movie_details.movie.tittle }}
+            </a>
+        </td>
         <td>{{ movie_details.movie.production_year }}</td>
         <td>{{ movie_details.movie.rating }}</td>
         <td>{{ movie_details.movie.certificate }}</td>
@@ -36,17 +40,17 @@
         <td>{{ movie_details.movie.votes }}</td>
         <td>
             {% for genre in movie_details.genres %}
-                {{ genre.display_name }}
+            {{ genre.display_name }}
             {% endfor %}
         </td>
         <td>
             {% for director in movie_details.directors %}
-                {{ director.display_name }}
+            {{ director.display_name }}
             {% endfor %}
         </td>
         <td>
             {% for cast in movie_details.casts %}
-                {{ cast.display_name }}
+            {{ cast.display_name }}
             {% endfor %}
         </td>
         <td>

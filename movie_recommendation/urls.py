@@ -19,9 +19,9 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.homepage),
-    path('about/', views.about),
-    path('admin/', admin.site.urls),
-    path('movies/', include('movie_app.urls')),
+    path('', views.homepage, name='home'),
+    path('about/', views.about, name='about'),
+    path('admin/', admin.site.urls, name='admin'),
+    path('movies/', include('movie_app.urls'), ),
     path('users/', include('user_app.urls')),
 ]
