@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Movies
 
 
 # Create your views here.
 
 def display_movies(request):
-    return HttpResponse(render(request, 'movies.html'))
+    movies = Movies.get_movies_head()
+    return render(request, 'movies.html', {'movies': movies})
 
 
 def display_film_page(request):
-    return HttpResponse(render(request, 'movie_details.html'))
+    return render(request, 'movie_details.html')

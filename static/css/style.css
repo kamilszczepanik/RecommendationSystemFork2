@@ -55,9 +55,8 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-    overflow:  hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 th {
