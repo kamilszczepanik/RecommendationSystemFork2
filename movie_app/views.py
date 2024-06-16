@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Movies
-
+from review_app.models import Reviews
 
 # Create your views here.
 
@@ -12,4 +12,9 @@ def display_movies(request):
 
 def display_film_page(request):
     movie_details = Movies.get_movie_details(1)
-    return render(request, 'movie_details.html', {'movie_details': movie_details})
+    reviews = Reviews.get_review_for_movie(movie_details['movie'])
+    context = {
+        'movie_details': movie_details,
+        'reviews': reviews
+    }
+    return render(request, 'movie_details.html', context=context)

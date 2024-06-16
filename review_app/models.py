@@ -32,6 +32,9 @@ class Reviews(models.Model):
         return cls.objects.get(pk=id)
 
     @classmethod
+    def get_review_for_movie(cls, movie):
+        return cls.objects.filter(movie=movie)
+    @classmethod
     def query_reviews(cls, movie=None, author=None):
         if movie:
             return cls.objects.filter(movie=movie)

@@ -48,4 +48,17 @@
         </td>
     </tr>
 </table>
+
+<h3>Reviews</h3>
+<table>
+    <tr>
+        <th>user</th>
+        <th>review_text</th>
+    </tr>
+    {% for review in reviews %}
+    <tr>
+        <td>{{ review.user }}</td>
+        <td>{{ review.review_text }}</td>
+    </tr>
+    {% endfor %}
 {% endblock %}
