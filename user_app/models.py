@@ -1,6 +1,7 @@
 from django.db import models
 from movie_app.models import Movies
 
+
 # Create your models here.
 class Users(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -29,8 +30,11 @@ class Users(models.Model):
     def get_users_head(cls):
         return cls.objects.all()[:5]
 
-    def get_user_reviews(self):
+    def get_users_reviews(self):
         return self.reviews.all()
+
+    def get_users_reviews_head(self):
+        return self.reviews.all()[:5]
 
     def get_user_comments(self):
         return self.comments.all()
