@@ -8,7 +8,7 @@ body {
     min-height: 100vh;
     background-color: black;
     color: whitesmoke;
-    font-size: 3rem;
+    font-size: 2rem;
     display: flex;
     flex-flow: column;
 }
@@ -39,4 +39,36 @@ a {
 
 a:hover {
     opacity: .85;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    max-width: 80%;
+    display: block;
+    font-size: 1rem;
+}
+
+th, td {
+    width: auto;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    overflow:  hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+th {
+    background-color: #3a3f79;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table td {
+    color: black;
 }
