@@ -28,6 +28,19 @@ class Movies(models.Model):
         return cls.objects.all()
 
     @classmethod
+    def get_movie_details(cls, id):
+        movie = cls.get_movie(id)
+        genres = Genredetails.objects.filter(genre__movie=movie)
+        directors = Directorsdetails.objects.filter(directors__movie=movie)
+        casts = Moviecastdetails.objects.filter(moviecast__movie=movie)
+        movie_details = {
+            'movie': movie,
+            'genres': genres,
+            'directors': directors,
+            'casts': casts
+        }
+        return movie_details
+    @classmethod
     def get_movies_details(cls):
         movies = cls.objects.all()
 

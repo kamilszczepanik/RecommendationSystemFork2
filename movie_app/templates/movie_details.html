@@ -6,4 +6,46 @@
 
 {% block content %}
 <h1>Movie details Page</h1>
+
+<table>
+    <tr>
+        <th>movie_id</th>
+        <th>tittle</th>
+        <th>production_year</th>
+        <th>rating</th>
+        <th>certificate</th>
+        <th>duration</th>
+        <th>description</th>
+        <th>votes</th>
+        <th>genre</th>
+        <th>director</th>
+        <th>cast</th>
+    </tr>
+
+    <tr>
+        <td>{{ movie_details.movie.movie_id }}</td>
+        <td>{{ movie_details.movie.tittle }}</td>
+        <td>{{ movie_details.movie.production_year }}</td>
+        <td>{{ movie_details.movie.rating }}</td>
+        <td>{{ movie_details.movie.certificate }}</td>
+        <td>{{ movie_details.movie.duration }}</td>
+        <td>{{ movie_details.movie.description }}</td>
+        <td>{{ movie_details.movie.votes }}</td>
+        <td>
+            {% for genre in movie_details.genres %}
+                {{ genre.display_name }}
+            {% endfor %}
+        </td>
+        <td>
+            {% for director in movie_details.directors %}
+                {{ director.display_name }}
+            {% endfor %}
+        </td>
+        <td>
+            {% for cast in movie_details.casts %}
+                {{ cast.display_name }}
+            {% endfor %}
+        </td>
+    </tr>
+</table>
 {% endblock %}
