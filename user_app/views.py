@@ -11,8 +11,11 @@ def display_users_page(request):
 
 def display_user_details_page(request):
     user = Users.get_user(2)
-
-    return render(request, 'user_details.html', {'user': user})
+    user_favorite_movies = user.get_user_favorite_movies()
+    user_reviews = user.get_user_reviews()
+    context = {'user': user, 'user_favorite_movies': user_favorite_movies,
+               'user_reviews': user_reviews}
+    return render(request, 'user_details.html', context=context)
 
 
 def display_login_page(request):

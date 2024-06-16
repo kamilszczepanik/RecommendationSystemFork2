@@ -30,11 +30,11 @@ class Users(models.Model):
     def get_users_head(cls):
         return cls.objects.all()[:5]
 
-    def get_users_reviews(self):
-        return self.reviews.all()
+    def get_user_favorite_movies(self):
+        return self.favouritemovies_set.all()
 
-    def get_users_reviews_head(self):
-        return self.reviews.all()[:5]
+    def get_user_reviews(self):
+        return self.reviews_set.all()
 
     def get_user_comments(self):
         return self.comments.all()
