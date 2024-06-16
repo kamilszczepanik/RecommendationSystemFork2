@@ -15,13 +15,17 @@ class Users(models.Model):
         db_table = 'users'
 
     def __str__(self):
-        return self.username
+        return self.display_name
 
     def get_user(self, id):
         return self.objects.get(pk=id)
 
     def get_users(self):
         return self.objects.all()
+
+    @classmethod
+    def get_users_head(cls):
+        return cls.objects.all()[:5]
 
     def get_user_reviews(self):
         return self.reviews.all()
