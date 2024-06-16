@@ -9,7 +9,15 @@ def display_users_page(request):
     return render(request, 'users.html',
                   {'users': users, 'reviews': reviews})
 
-def display_user_details_page(request):
+def display_user_details_page(request, user_id):
+    user = Users.get_user(user_id)
+    user_favorite_movies = user.get_user_favorite_movies()
+    user_reviews = user.get_user_reviews()
+    context = {'user': user, 'user_favorite_movies': user_favorite_movies,
+               'user_reviews': user_reviews}
+    return render(request, 'user_details.html', context=context)
+
+def display_sample_user_details_page(request):
     user = Users.get_user(2)
     user_favorite_movies = user.get_user_favorite_movies()
     user_reviews = user.get_user_reviews()
