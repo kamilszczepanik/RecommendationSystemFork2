@@ -19,21 +19,25 @@ class Movies(models.Model):
     def __str__(self):
         return self.tittle
 
-    def get_movie(self, id):
-        return self.objects.get(pk=id)
+    @classmethod
+    def get_movie(cls, id):
+        return cls.objects.get(pk=id)
 
-    def get_movies(self):
-        return self.objects.all()
+    @classmethod
+    def get_movies(cls):
+        return cls.objects.all()
 
-    def query_movies(self, name=None, genre=None):
-        if name:
-            return self.objects.filter(title__icontains=name)
+    @classmethod
+    def query_movies(cls, tittle=None, genre=None):
+        if tittle:
+            return cls.objects.filter(title__icontains=tittle)
         if genre:
-            return self.objects.filter(genre__icontains=genre)
-        return self.objects.all()
+            return cls.objects.filter(genre__icontains=genre)
+        return cls.objects.all()
 
-    def sort_movies(self, name, genre, sort_by='rating'):
-        movies = self.query_movies(name=name, genre=genre)
+    @classmethod
+    def sort_movies(cls, tittle, genre, sort_by='rating'):
+        movies = cls.query_movies(tittle=tittle, genre=genre)
         return movies.order_by(sort_by)
 
 

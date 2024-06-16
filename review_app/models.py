@@ -19,21 +19,25 @@ class Reviews(models.Model):
     def __str__(self):
         return self.movie.title + ' - ' + self.author
 
-    def get_reviews(self):
-        return self.objects.all()
+    @classmethod
+    def get_reviews(cls):
+        return cls.objects.all()
 
-    def get_review(self, id):
-        return self.objects.get(pk=id)
+    @classmethod
+    def get_review(cls, id):
+        return cls.objects.get(pk=id)
 
-    def query_reviews(self, movie=None, author=None):
+    @classmethod
+    def query_reviews(cls, movie=None, author=None):
         if movie:
-            return self.objects.filter(movie=movie)
+            return cls.objects.filter(movie=movie)
         if author:
-            return self.objects.filter(author__icontains=author)
-        return self.objects.all()
+            return cls.objects.filter(author__icontains=author)
+        return cls.objects.all()
 
-    def sort_reviews(self, movie, author, sort_by='rating'):
-        reviews = self.query_reviews(movie=movie, author=author)
+    @classmethod
+    def sort_reviews(cls, movie, author, sort_by='rating'):
+        reviews = cls.query_reviews(movie=movie, author=author)
         return reviews.order_by(sort_by)
 
 
