@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    About
+About
 {% endblock %}
 
 {% block content %}
@@ -9,67 +9,68 @@
 <p>Here you can see the details of the user.</p>
 
 <h3>User data</h3>
-    <table>
-        <tr>
-            <th>user_id</th>
-            <th>login</th>
-            <th>password_hash</th>
-            <th>salt</th>
-            <th>display_name</th>
-            <th>user_role</th>
+<table>
+    <tr>
+        <th>user_id</th>
+        <th>login</th>
+        <th>password_hash</th>
+        <th>salt</th>
+        <th>display_name</th>
+        <th>user_role</th>
 
-        </tr>
-        <tr>
-            <td>{{ user.user_id }}</td>
-            <td>{{ user.login }}</td>
-            <td>{{ user.password_hash }}</td>
-            <td>{{ user.salt }}</td>
-            <td>{{ user.display_name }}</td>
-            <td>{{ user.user_role }}</td>
-        </tr>
-    </table>
+    </tr>
+    <tr>
+        <td>{{ user.user_id }}</td>
+        <td>{{ user.login }}</td>
+        <td>{{ user.password_hash }}</td>
+        <td>{{ user.salt }}</td>
+        <td>{{ user.display_name }}</td>
+        <td>{{ user.user_role }}</td>
+    </tr>
+</table>
 <h3>Reviews</h3>
+
+<table>
+    <tr>
+        <th>review_id</th>
+        <th>movie</th>
+        <th>user</th>
+        <th>rating</th>
+        <th>review_data</th>
+        <th>review_text</th>
+    </tr>
     {% for review in user_reviews %}
-        <table>
-            <tr>
-                <th>review_id</th>
-                <th>movie</th>
-                <th>user</th>
-                <th>rating</th>
-                <th>review_data</th>
-                <th>review_text</th>
-            </tr>
-            <tr>
-                <td>{{ review.review_id }}</td>
-                <td>{{ review.movie }}</td>
-                <td>{{ review.user }}</td>
-                <td>{{ review.rating }}</td>
-                <td>{{ review.review_date }}</td>
-                <td>{{ review.review_text }}</td>
-            </tr>
-        </table>
+    <tr>
+        <td>{{ review.review_id }}</td>
+        <td>{{ review.movie }}</td>
+        <td>{{ review.user }}</td>
+        <td>{{ review.rating }}</td>
+        <td>{{ review.review_date }}</td>
+        <td>{{ review.review_text }}</td>
+    </tr>
     {% endfor %}
+</table>
 
 <h3>Favourite Movies</h3>
+<table>
+    <tr>
+        <th>review_id</th>
+        <th>movie</th>
+        <th>user</th>
+        <th>rating</th>
+        <th>review_data</th>
+        <th>review_text</th>
+    </tr>
     {% for review in user_reviews %}
-        <table>
-            <tr>
-                <th>review_id</th>
-                <th>movie</th>
-                <th>user</th>
-                <th>rating</th>
-                <th>review_data</th>
-                <th>review_text</th>
-            </tr>
-            <tr>
-                <td>{{ review.review_id }}</td>
-                <td>{{ review.movie }}</td>
-                <td>{{ review.user }}</td>
-                <td>{{ review.rating }}</td>
-                <td>{{ review.review_date }}</td>
-                <td>{{ review.review_text }}</td>
-            </tr>
-        </table>
+    <tr>
+        <td>{{ review.review_id }}</td>
+        <td>{{ review.movie }}</td>
+        <td>{{ review.user }}</td>
+        <td>{{ review.rating }}</td>
+        <td>{{ review.review_date }}</td>
+        <td>{{ review.review_text }}</td>
+    </tr>
     {% endfor %}
+</table>
 
 {% endblock %}
