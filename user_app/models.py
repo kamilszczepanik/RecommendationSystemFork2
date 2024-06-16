@@ -17,11 +17,13 @@ class Users(models.Model):
     def __str__(self):
         return self.display_name
 
-    def get_user(self, id):
-        return self.objects.get(pk=id)
+    @classmethod
+    def get_user(cls, id):
+        return cls.objects.get(pk=id)
 
-    def get_users(self):
-        return self.objects.all()
+    @classmethod
+    def get_users(cls):
+        return cls.objects.all()
 
     @classmethod
     def get_users_head(cls):
@@ -33,15 +35,17 @@ class Users(models.Model):
     def get_user_comments(self):
         return self.comments.all()
 
-    def query_users(self, username=None, email=None):
-        if username:
-            return self.objects.filter(username__icontains=username)
-        if email:
-            return self.objects.filter(email__icontains=email)
-        return self.objects.all()
+    @classmethod
+    def query_users(cls, login=None, display_name=None):
+        if login:
+            return cls.objects.filter(username__icontains=login)
+        if display_name:
+            return cls.objects.filter(email__icontains=display_name)
+        return cls.objects.all()
 
-    def sort_users(self, username, email, sort_by='date_joined'):
-        users = self.query_users(username=username, email=email)
+    @classmethod
+    def sort_users(cls, username, email, sort_by='date_joined'):
+        users = cls.query_users(username=username, email=email)
         return users.order_by(sort_by)
 
 
