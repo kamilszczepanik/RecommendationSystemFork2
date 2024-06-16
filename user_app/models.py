@@ -9,7 +9,7 @@ class Users(models.Model):
     password_hash = models.BinaryField()
     salt = models.BinaryField()
     display_name = models.TextField()
-    user_role = models.TextField()
+    user_role = models.CharField(default='user')
 
     class Meta:
         managed = False

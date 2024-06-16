@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    About
+    Register
 {% endblock %}
 
 {% block content %}
 <h1>Register Page</h1>
+<form action="{% url 'user_app:register' %}" method="post">
+    {% csrf_token %}
+    <label for="login">Login:</label>
+    <input type="text" id="login" name="login" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+    <label for="display_name">Display Name:</label>
+    <input type="text" id="display_name" name="display_name" required><br>
+    <input type="submit" value="Register">
+</form>
 {% endblock %}
