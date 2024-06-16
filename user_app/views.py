@@ -3,11 +3,16 @@ from .models import Users, Favouritemovies
 from review_app.models import Reviews
 
 # Create your views here.
-def display_user_page(request):
+def display_users_page(request):
     users = Users.get_users_head()
     reviews = Reviews.get_reviews_head()
-    return render(request, 'user_details.html',
+    return render(request, 'users.html',
                   {'users': users, 'reviews': reviews})
+
+def display_user_details_page(request):
+    user = Users.get_user(2)
+
+    return render(request, 'user_details.html', {'user': user})
 
 
 def display_login_page(request):
