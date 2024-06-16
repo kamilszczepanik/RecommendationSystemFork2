@@ -23,28 +23,28 @@
         <th>director</th>
         <th>cast</th>
     </tr>
-    {% for movie in movies %}
+    {% for movie_details in movies_details %}
     <tr>
-        <td>{{ movie.movie.movie_id }}</td>
-        <td>{{ movie.movie.tittle }}</td>
-        <td>{{ movie.movie.production_year }}</td>
-        <td>{{ movie.movie.rating }}</td>
-        <td>{{ movie.movie.certificate }}</td>
-        <td>{{ movie.movie.duration }}</td>
-        <td>{{ movie.movie.description }}</td>
-        <td>{{ movie.movie.votes }}</td>
+        <td>{{ movie_details.movie.movie_id }}</td>
+        <td>{{ movie_details.movie.tittle }}</td>
+        <td>{{ movie_details.movie.production_year }}</td>
+        <td>{{ movie_details.movie.rating }}</td>
+        <td>{{ movie_details.movie.certificate }}</td>
+        <td>{{ movie_details.movie.duration }}</td>
+        <td>{{ movie_details.movie.description }}</td>
+        <td>{{ movie_details.movie.votes }}</td>
         <td>
-            {% for genre in movie.genres %}
+            {% for genre in movie_details.genres %}
                 {{ genre.display_name }}
             {% endfor %}
         </td>
         <td>
-            {% for director in movie.directors %}
+            {% for director in movie_details.directors %}
                 {{ director.display_name }}
             {% endfor %}
         </td>
         <td>
-            {% for cast in movie.casts %}
+            {% for cast in movie_details.casts %}
                 {{ cast.display_name }}
             {% endfor %}
         </td>
