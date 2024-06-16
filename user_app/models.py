@@ -117,6 +117,10 @@ class Users(AbstractBaseUser, PermissionsMixin):
     def get_user_favorite_movies(self):
         return self.favouritemovies_set.all()
 
+    @classmethod
+    def get_users_head(cls):
+        return cls.objects.all()[:5]
+
     def get_user_reviews(self):
         return self.reviews_set.all()
 
