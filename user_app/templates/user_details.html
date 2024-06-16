@@ -7,6 +7,7 @@
 {% block content %}
 <h1>User Details Page</h1>
 <p>Here you can see the details of the user.</p>
+<h3>Users</h3>
     {% for user in users %}
         <table>
             <tr>
@@ -25,6 +26,27 @@
                 <td>{{ user.salt }}</td>
                 <td>{{ user.display_name }}</td>
                 <td>{{ user.user_role }}</td>
+            </tr>
+        </table>
+    {% endfor %}
+<h3>Reviews</h3>
+    {% for review in reviews %}
+        <table>
+            <tr>
+                <th>review_id</th>
+                <th>movie</th>
+                <th>user</th>
+                <th>rating</th>
+                <th>review_data</th>
+                <th>review_text</th>
+            </tr>
+            <tr>
+                <td>{{ review.review_id }}</td>
+                <td>{{ review.movie }}</td>
+                <td>{{ review.user }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.review_date }}</td>
+                <td>{{ review.review_text }}</td>
             </tr>
         </table>
     {% endfor %}

@@ -17,11 +17,15 @@ class Reviews(models.Model):
         db_table = 'reviews'
 
     def __str__(self):
-        return self.movie.title + ' - ' + self.author
+        return self.user.display_name + ' - ' + self.review_text
 
     @classmethod
     def get_reviews(cls):
         return cls.objects.all()
+
+    @classmethod
+    def get_reviews_head(cls):
+        return cls.objects.all()[:5]
 
     @classmethod
     def get_review(cls, id):
