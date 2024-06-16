@@ -61,6 +61,12 @@ Movies
             <p>{{ review.review_text }}</p>
             {% endfor %}
         </td>
+        <td>
+            {% for review in movie_details.reviews %}
+            <b>{{ review.user }}</b>
+            <p>{{ review.review_text }}</p>
+            {% endfor %}
+        </td>
     </tr>
     {% endfor %}
 </table>
