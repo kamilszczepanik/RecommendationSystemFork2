@@ -28,6 +28,29 @@ class Movies(models.Model):
         return cls.objects.all()
 
     @classmethod
+    def get_movies_details(cls):
+        movies = cls.objects.all()
+
+        movies_details = []
+        for movie in movies:
+            genres = Genredetails.objects.filter(genre__movie=movie)
+            directors = Directorsdetails.objects.filter(directors__movie=movie)
+            casts = Moviecastdetails.objects.filter(moviecast__movie=movie)
+            movie_details = {
+                'movie': movie,
+                'genres': genres,
+                'directors': directors,
+                'casts': casts
+            }
+
+            movies_details.append(movie_details)
+        return movies_details
+
+    @classmethod
+    def get_movies_head(cls):
+        return cls.get_movies_details()[:5]
+
+    @classmethod
     def query_movies(cls, tittle=None, genre=None):
         if tittle:
             return cls.objects.filter(title__icontains=tittle)
@@ -50,6 +73,8 @@ class Directors(models.Model):
         db_table = 'directors'
 
 
+
+
 class Directorsdetails(models.Model):
     director_id = models.AutoField(primary_key=True)
     display_name = models.TextField()
@@ -67,6 +92,9 @@ class Genre(models.Model):
         managed = False
         db_table = 'genre'
 
+    def __str__(self):
+        return self.genre.display_name
+
 
 class Genredetails(models.Model):
     genre_id = models.AutoField(primary_key=True)
@@ -75,6 +103,9 @@ class Genredetails(models.Model):
     class Meta:
         managed = False
         db_table = 'genredetails'
+
+    def __str__(self):
+        return self.display_name
 
 
 class Moviecast(models.Model):
