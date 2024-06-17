@@ -6,5 +6,16 @@
 
 {% block content %}
 <h1>Login Page</h1>
+<form action="{% url 'user_app:login' %}" method="post">
+    {% csrf_token %}
+    <label for="login">Login:</label>
+    <input type="text" id="login" name="login" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+    <input type="submit" value="Login">
+</form>
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
 <a href="/users/register"><h3>Register Page</h3></a>
 {% endblock %}

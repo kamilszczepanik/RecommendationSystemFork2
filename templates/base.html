@@ -21,8 +21,12 @@
     <a href="{% url 'movie_app:sample_movie_details' %}">Movies Details</a>
     <a href="{% url 'user_app:users' %}">Users</a>
     <a href="{% url 'user_app:sample_user_details' %}">User Details</a>
-    <a href="{% url 'user_app:login' %}">Login</a>
     <a href="{% url 'about' %}">About</a>
+    <a href="{% url 'user_app:login' %}">Login</a>
+    <form action="{% url 'user_app:logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout">
+    </form>
 </nav>
 <main>
     {% block content %}
