@@ -1,15 +1,19 @@
 from django.db import models
 from movie_app.models import Movies
+from django.contrib.auth.hashers import check_password as django_check_password
 
 
 # Create your models here.
 class Users(models.Model):
     user_id = models.AutoField(primary_key=True)
-    login = models.TextField()
+    login = models.TextField(unique=True)
     password_hash = models.BinaryField()
     salt = models.BinaryField()
     display_name = models.TextField()
     user_role = models.CharField(default='user')
+
+    USERNAME_FIELD = 'login'
+    REQUIRED_FIELDS = []
 
     class Meta:
         managed = False
@@ -17,6 +21,17 @@ class Users(models.Model):
 
     def __str__(self):
         return self.display_name
+    @property
+    def is_anonymous(self):
+        return False
+    @property
+    def is_authenticated(self):
+        return True
+
+    def check_password(self, raw_password):
+        password_hash = self.password_hash.tobytes().decode()
+        return django_check_password(raw_password, password_hash)
+
 
     @classmethod
     def get_user(cls, id):

@@ -3,8 +3,9 @@ from .models import Users, Favouritemovies
 from review_app.models import Reviews
 from .forms import UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -14,7 +15,7 @@ def display_users_page(request):
     return render(request, 'users.html',
                   {'users': users, 'reviews': reviews})
 
-
+@login_required(login_url='user_app:login')
 def display_user_details_page(request, user_id):
     user = Users.get_user(user_id)
     user_favorite_movies = user.get_user_favorite_movies()
@@ -24,6 +25,7 @@ def display_user_details_page(request, user_id):
     return render(request, 'user_details.html', context=context)
 
 
+@login_required(login_url='user_app:login')
 def display_sample_user_details_page(request):
     user = Users.get_user(2)
     user_favorite_movies = user.get_user_favorite_movies()
@@ -34,26 +36,31 @@ def display_sample_user_details_page(request):
 
 
 def display_login_page(request):
+    context = {}
     if request.method == 'POST':
-        login = request.POST.get('login')
-        password = request.POST.get('password')
-        try:
-            user = Users.objects.get(login=login)
-        except Users.DoesNotExist:
-            return render(request, 'login.html',
-                          {'form': AuthenticationForm(),
-                           'error': 'User not found'})
-        password_hash = bytes(user.password_hash).decode('utf-8')
-        if check_password(password, password_hash):
-            request.session['user_id'] = user.user_id
-            print('User ID:', request.session['user_id'], 'logged in')
+        username = request.POST['login']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        print("username: ", username, "password: ", password, "user: ", user)
+        if user is not None:
+            login(request, user)
             return redirect('user_app:user_details', user_id=user.user_id)
         else:
-            return render(request, 'login.html',
-                          {'form': AuthenticationForm(),
-                           'error': 'Incorrect password'})
+            context['error'] = "Invalid username or password"
     else:
-        return render(request, 'login.html', {'form': AuthenticationForm()})
+        form = AuthenticationForm()
+        context['form'] = form
+    return render(request, 'login.html', context=context)
+
+
+
+
+def display_logout_page(request):
+    logout(request)
+    if request.method == 'POST':
+        return redirect('user_app:login')
+    else:
+        return render(request, 'logout.html')
 
 
 def display_register_page(request):
