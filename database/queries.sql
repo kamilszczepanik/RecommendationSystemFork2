@@ -60,7 +60,7 @@
 -- JOIN GenreDetails gd ON g.genre_id = gd.genre_id
 -- WHERE gd.display_name = 'Drama'
 
-
+--SELECT DISTINCT photo_url FROM movies WHERE title = 'Game of Thrones'
 
 
 
