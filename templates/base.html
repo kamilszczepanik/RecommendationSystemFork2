@@ -3,8 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
         {% block title %}
@@ -13,21 +12,36 @@
     </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-<nav>
-    <a href="/">Home</a>
-    <a href="{% url 'movie_app:movies' %}">Movies</a>
-    <a href="{% url 'movie_app:sample_movie_details' %}">Movies Details</a>
-    <a href="{% url 'user_app:users' %}">Users</a>
-    <a href="{% url 'user_app:sample_user_details' %}">User Details</a>
-    <a href="{% url 'about' %}">About</a>
-    <a href="{% url 'user_app:login' %}">Login</a>
-    <form action="{% url 'user_app:logout' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Logout">
-    </form>
-</nav>
+<header>
+    <div class="top-bar">
+        <div class="search-bar">
+            <form action="/search" method="get">
+                <input type="text" name="q" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+
+    </div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'movie_app:movies' %}">Movies</a>
+        <a href="{% url 'movie_app:sample_movie_details' %}">Movies Details</a>
+        <a href="{% url 'user_app:users' %}">Users</a>
+        <a href="{% url 'user_app:sample_user_details' %}">User Details</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'user_app:login' %}" class="login-button">
+            <i class="bi bi-person-fill"></i> Login
+        </a>
+
+
+    </nav>
+</header>
 <main>
     {% block content %}
     {% endblock %}
