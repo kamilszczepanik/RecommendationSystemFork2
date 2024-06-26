@@ -17,6 +17,8 @@
         <th>duration</th>
         <th>description</th>
         <th>votes</th>
+        <th>photo_url</th>
+
         <th>genre</th>
         <th>director</th>
         <th>cast</th>
@@ -24,13 +26,15 @@
 
     <tr>
         <td>{{ movie_details.movie.movie_id }}</td>
-        <td>{{ movie_details.movie.tittle }}</td>
+        <td>{{ movie_details.movie.title }}</td>
         <td>{{ movie_details.movie.production_year }}</td>
         <td>{{ movie_details.movie.rating }}</td>
         <td>{{ movie_details.movie.certificate }}</td>
         <td>{{ movie_details.movie.duration }}</td>
         <td>{{ movie_details.movie.description }}</td>
         <td>{{ movie_details.movie.votes }}</td>
+        <td><img src="{{ movie_details.movie.photo_url }}" class="poster"></td>
+
         <td>
             {% for genre in movie_details.genres %}
                 {{ genre.display_name }}
