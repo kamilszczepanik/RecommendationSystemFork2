@@ -6,16 +6,22 @@
 
 {% block content %}
 <h1>Login Page</h1>
-<form action="{% url 'user_app:login' %}" method="post">
+<form action="{% url 'user_app:login' %}" method="post" class="login-form">
     {% csrf_token %}
-    <label for="login">Login:</label>
-    <input type="text" id="login" name="login" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <input type="submit" value="Login">
+    <div class="form-group">
+        <label for="login" class="form-label">Login:</label>
+        <input type="text" id="login" name="login" required class="form-input">
+    </div>
+    <div class="form-group">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" id="password" name="password" required class="form-input">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Login" class="login-button">
+    </div>
 </form>
 {% if error %}
     <p class="error">{{ error }}</p>
 {% endif %}
-<a href="/users/register"><h3>Register Page</h3></a>
+<a href="/users/register" class="register-button">Register Page</a>
 {% endblock %}

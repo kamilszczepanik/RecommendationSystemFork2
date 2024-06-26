@@ -1,16 +1,13 @@
-/* style.css */
-
-/* Ogólne style */
 body {
     font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #232F3E; /* kolor tła */
-    color: #FFFFFF; /* kolor czcionki */
+    background-color: #232F3E;
+    color: #FFFFFF;
 }
 
 header {
-    background-color: #0C151A; /* kolor górnego paska */
+    background-color: #0C151A;
     color: white;
     padding: 10px;
     display: flex;
@@ -26,8 +23,8 @@ header {
 }
 
 .search-bar {
-   padding: 10px;
-   margin: 0 auto;
+    padding: 10px;
+    margin: 0 auto;
 }
 
 .search-bar form {
@@ -61,7 +58,7 @@ header {
     border-radius: 5px;
     display: flex;
     align-items: center;
-    margin-right: 10px; /* dodaj margines po prawej stronie */
+    margin-right: 10px;
 }
 
 .login-button:hover, .logout-button:hover {
@@ -76,13 +73,13 @@ nav {
     width: 100%;
     background-color: #0C151A;
     display: flex;
-    justify-content: center; /* Wysrodkowanie elementów w pasku nawigacji */
-    align-items: center; /* Wyrownanie elementów w pasku nawigacji */
+    justify-content: center;
+    align-items: center;
     padding: 10px 0;
 }
 
 nav a {
-    color: white; /* kolor czcionki dla linków w nawigacji */
+    color: white;
     text-decoration: none;
     margin: 0 15px;
     padding: 5px 10px;
@@ -93,13 +90,8 @@ nav a:hover {
     border-radius: 5px;
 }
 
-main {
-    text-align: center;
-    padding: 50px;
-}
-
 a {
-    color: white; /* kolor czcionki dla linków w nawigacji */
+    color: white;
     text-decoration: underline;
     margin: 0 15px;
     padding: 5px 10px;
@@ -142,17 +134,105 @@ a {
     text-align: center;
 }
 
-/* style.css */
 .star-rating {
     display: inline-block;
 }
 
 .star {
-    font-size: 1.5em;  /* Adjust size as needed */
-    color: lightgray;  /* Color of unfilled stars */
+    font-size: 1.5em;
+    color: lightgray;
 }
 
 .star.filled {
-    color: gold;  /* Color of filled stars */
+    color: gold;
 }
 
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-label {
+    margin-right: 10px;
+    width: 80px;
+    text-align: left;
+}
+
+.form-input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    width: 170px;
+}
+
+.login-button {
+    padding: 10px 20px;
+}
+
+.register-button {
+    text-decoration: none;
+    color: white;
+    background-color: #0C151A;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    width: 265px;
+    margin-top: 10px;
+    margin-right: calc(10px);
+}
+
+.register-button:hover {
+    background-color: #575a5e;
+}
+
+.register-form {
+    width: 400px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #0C151A;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"],
+.register-form input[type="first_name"],
+.register-form input[type="surname"] {
+    width: calc(100% - 100px);
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.register-page-button {
+    text-decoration: none;
+    color: white;
+    background-color: #0C151A;
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.register-page-button:hover {
+    background-color: #575a5e;
+}
+
+main {
+    text-align: center;
+    padding: 50px;
+}
