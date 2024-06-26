@@ -4,20 +4,21 @@ from django.db import models
 # Create your models here.
 class Movies(models.Model):
     movie_id = models.AutoField(primary_key=True)
-    tittle = models.TextField()
+    title = models.TextField()
     production_year = models.IntegerField(blank=True, null=True)
     rating = models.FloatField(blank=True, null=True)
     certificate = models.TextField(blank=True, null=True)
     duration = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     votes = models.IntegerField(blank=True, null=True)
+    photo_url = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'movies'
 
     def __str__(self):
-        return self.tittle
+        return self.title
 
     @classmethod
     def get_movie(cls, id):
@@ -40,6 +41,7 @@ class Movies(models.Model):
             'casts': casts
         }
         return movie_details
+
     @classmethod
     def get_movies_details(cls):
         movies = cls.objects.all()
@@ -84,8 +86,6 @@ class Directors(models.Model):
     class Meta:
         managed = False
         db_table = 'directors'
-
-
 
 
 class Directorsdetails(models.Model):
