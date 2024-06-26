@@ -7,4 +7,15 @@
 {% block content %}
 <h1>Home Page</h1>
 <p>Welcome to the Movie Recommendation App!</p>
+<h2>Most Popular Movies</h2>
+<ul>
+    {% for movie in popular_movies %}
+    <li>
+        <h3>{{ movie.title }}</h3>
+        <p>Rating: {{ movie.rating }}</p>
+        <p>Number of votes: {{ movie.votes }}</p>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
