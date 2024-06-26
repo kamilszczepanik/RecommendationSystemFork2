@@ -102,3 +102,16 @@ main {
     text-align: center;
     padding: 50px;
 }
+
+a {
+    color: white; /* kolor czcionki dla linków w nawigacji */
+    text-decoration: underline;
+    margin: 0 15px;
+    padding: 5px 10px;
+}
+
+.poster {
+    width: 20%;
+    height: 20%;
+    object-fit: cover;
+}
