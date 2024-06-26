@@ -1,5 +1,6 @@
 /* style.css */
 
+/* Ogólne style */
 body {
     font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
@@ -27,8 +28,6 @@ header {
 .search-bar {
    padding: 10px;
    margin: 0 auto;
-   
-
 }
 
 .search-bar form {
@@ -53,8 +52,6 @@ header {
 .search-bar button:hover {
     background-color: #575a5e;
 }
-
-
 
 .login-button, .logout-button {
     text-decoration: none;
@@ -96,8 +93,6 @@ nav a:hover {
     border-radius: 5px;
 }
 
-
-
 main {
     text-align: center;
     padding: 50px;
@@ -110,8 +105,54 @@ a {
     padding: 5px 10px;
 }
 
-.poster {
-    width: 20%;
-    height: 20%;
-    object-fit: cover;
+.movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 70px;
 }
+
+.movie-item {
+    background-color: #0C151A;
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.poster {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.review-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.review-item {
+    background-color: #0C151A;
+    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+/* style.css */
+.star-rating {
+    display: inline-block;
+}
+
+.star {
+    font-size: 1.5em;  /* Adjust size as needed */
+    color: lightgray;  /* Color of unfilled stars */
+}
+
+.star.filled {
+    color: gold;  /* Color of filled stars */
+}
+
