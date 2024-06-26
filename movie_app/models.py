@@ -20,6 +20,24 @@ class Movies(models.Model):
     def __str__(self):
         return self.title
 
+
+    @classmethod
+    def get_distinct_movies(cls):
+        all_movies = list(cls.objects.all())
+        unique_movies = []
+        seen_titles = set()
+        for movie in all_movies:
+            if movie.title not in seen_titles:
+                unique_movies.append(movie)
+                seen_titles.add(movie.title)
+        return unique_movies
+    @classmethod
+    def get_popular_movies(cls):
+        distinct_movies = cls.get_distinct_movies()
+        scored_movies = [(movie, movie.rating * movie.votes) for movie in distinct_movies]
+        scored_movies.sort(key=lambda x: x[1], reverse=True)
+        return [movie for movie, score in scored_movies[:3]]
+
     @classmethod
     def get_movie(cls, id):
         return cls.objects.get(pk=id)
