@@ -1,19 +1,42 @@
 from django.db import models
 from movie_app.models import Movies
 from django.contrib.auth.hashers import check_password as django_check_password
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.hashers import make_password
+from django.db.models import QuerySet
 
 
 # Create your models here.
-class Users(models.Model):
+class UserManager(BaseUserManager):
+    def create_user(self, login, password=None, **extra_fields):
+        if not login:
+            raise ValueError('The Login field must be set')
+        user = self.model(login=login, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, login, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(login, password, **extra_fields)
+
+
+class Users(AbstractBaseUser, PermissionsMixin):
     user_id = models.AutoField(primary_key=True)
     login = models.TextField(unique=True)
     password_hash = models.BinaryField()
     salt = models.BinaryField()
     display_name = models.TextField()
     user_role = models.CharField(default='user')
+    email = models.TextField()
+    first_name = models.TextField()
+    surname = models.TextField()
 
     USERNAME_FIELD = 'login'
     REQUIRED_FIELDS = []
+
+    objects = UserManager()
 
     class Meta:
         managed = False
@@ -21,17 +44,63 @@ class Users(models.Model):
 
     def __str__(self):
         return self.display_name
+
     @property
     def is_anonymous(self):
         return False
+
     @property
     def is_authenticated(self):
         return True
 
+    @property
+    def is_staff(self):
+        return self.user_role == 'admin'
+
+    @property
+    def is_superuser(self):
+        return self.user_role == 'admin'
+
+    @property
+    def password(self):
+        return self.password_hash.tobytes().decode()
+
+    @password.setter
+    def set_password(self, raw_password):
+        hashed_password = make_password(raw_password)
+        self.password_hash = hashed_password.encode()
+        self.save()
+
+    @property
+    def last_login(self):
+        return None
+
+    @last_login.setter
+    def set_last_login(self, last_login):
+        pass
+
+    @property
+    def groups(self):
+        return QuerySet()
+
+    @groups.setter
+    def set_groups(self, groups):
+        pass
+
+    @property
+    def user_permissions(self):
+        return QuerySet()
+
+    @user_permissions.setter
+    def user_permissions(self, value):
+        pass
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     def check_password(self, raw_password):
         password_hash = self.password_hash.tobytes().decode()
         return django_check_password(raw_password, password_hash)
-
 
     @classmethod
     def get_user(cls, id):
