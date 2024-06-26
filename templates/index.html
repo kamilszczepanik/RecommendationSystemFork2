@@ -18,4 +18,17 @@
     {% endfor %}
 </ul>
 
+<h2>Latest Reviews</h2>
+<ul>
+    {% for review in latest_reviews %}
+    <li>
+        <h3>{{ review.movie.title }}</h3>
+        <p>User: {{ review.user.display_name}}</p>
+        <p>Review: {{ review.review_text }}</p>
+        <p>Rating: {{ review.rating }}</p>
+        <p>Posted on: {{ review.review_date }}</p>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

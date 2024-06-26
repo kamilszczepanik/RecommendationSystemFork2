@@ -35,6 +35,11 @@ class Reviews(models.Model):
     @classmethod
     def get_review_for_movie(cls, movie):
         return cls.objects.filter(movie=movie)
+
+    @classmethod
+    def get_latest_review(cls):
+        return cls.objects.all().order_by('-review_date')[:3]
+
     @classmethod
     def query_reviews(cls, movie=None, author=None):
         if movie:
