@@ -10,7 +10,7 @@ class Reviews(models.Model):
     movie = models.ForeignKey(Movies, models.DO_NOTHING)
     user = models.ForeignKey(Users, models.DO_NOTHING)
     rating = models.IntegerField()
-    review_date = models.DateField()
+    review_date = models.DateField(auto_now=True)
     review_text = models.TextField(blank=True, null=True)
 
     class Meta:
