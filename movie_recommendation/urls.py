@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('movies/', include('movie_app.urls'), ),
     path('users/', include('user_app.urls')),
+    path('reviews/', include('review_app.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
