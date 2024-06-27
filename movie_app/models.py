@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class Movies(models.Model):
     movie_id = models.AutoField(primary_key=True)
     title = models.TextField()
@@ -20,7 +19,6 @@ class Movies(models.Model):
     def __str__(self):
         return self.title
 
-
     @classmethod
     def get_distinct_movies(cls):
         all_movies = list(cls.objects.all())
@@ -31,12 +29,38 @@ class Movies(models.Model):
                 unique_movies.append(movie)
                 seen_titles.add(movie.title)
         return unique_movies
+
     @classmethod
     def get_popular_movies(cls):
         distinct_movies = cls.get_distinct_movies()
-        scored_movies = [(movie, movie.rating * movie.votes) for movie in distinct_movies]
+        scored_movies = [(movie, movie.rating * movie.votes) for movie in distinct_movies if movie.rating is not None and movie.votes is not None]
         scored_movies.sort(key=lambda x: x[1], reverse=True)
         return [movie for movie, score in scored_movies[:3]]
+
+    def get_star_rating(self):
+        if self.rating is None:
+            return {
+                'full_stars': [],
+                'half_stars': 0,
+                'empty_stars': range(5)
+            }
+        full_stars = int(self.rating)
+        decimal_part = self.rating - full_stars
+
+        # Calculate half star
+        if 0.25 <= decimal_part < 0.75:
+            half_stars = 1
+        else:
+            half_stars = 0
+
+        # Calculate empty stars
+        empty_stars = 5 - full_stars - half_stars
+
+        return {
+            'full_stars': range(full_stars),
+            'half_stars': half_stars,
+            'empty_stars': range(empty_stars)
+        }
 
     @classmethod
     def get_movie(cls, id):
@@ -84,16 +108,17 @@ class Movies(models.Model):
         return cls.get_movies_details()[:5]
 
     @classmethod
-    def query_movies(cls, tittle=None, genre=None):
-        if tittle:
-            return cls.objects.filter(title__icontains=tittle)
+    def query_movies(cls, title=None, genre=None):
+        queryset = cls.objects.all()
+        if title:
+            queryset = queryset.filter(title__icontains=title)
         if genre:
-            return cls.objects.filter(genre__icontains=genre)
-        return cls.objects.all()
+            queryset = queryset.filter(genre__icontains=genre)
+        return queryset
 
     @classmethod
-    def sort_movies(cls, tittle, genre, sort_by='rating'):
-        movies = cls.query_movies(tittle=tittle, genre=genre)
+    def sort_movies(cls, title=None, genre=None, sort_by='rating'):
+        movies = cls.query_movies(title=title, genre=genre)
         return movies.order_by(sort_by)
 
 

@@ -7,28 +7,41 @@
 {% block content %}
 <h1>Home Page</h1>
 <p>Welcome to the Movie Recommendation App!</p>
-<h2>Most Popular Movies</h2>
-<ul>
+
+<h2>Najpopularniejsze Filmy</h2>
+<div class="movie-grid">
     {% for movie in popular_movies %}
-    <li>
+    <div class="movie-item">
+        <img class="poster" src="{{ movie.photo_url }}" alt="{{ movie.title }}">
         <h3>{{ movie.title }}</h3>
         <p>Rating: {{ movie.rating }}</p>
+        <div class="star-rating">
+            {% for star in movie.get_star_rating.full_stars %}
+                <span class="star filled">&#9733;</span>
+            {% endfor %}
+            {% if movie.get_star_rating.half_stars %}
+                <span class="star">&#9733;</span>
+            {% endif %}
+            {% for star in movie.get_star_rating.empty_stars %}
+                <span class="star">&#9734;</span>
+            {% endfor %}
+        </div>
         <p>Number of votes: {{ movie.votes }}</p>
-    </li>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
-<h2>Latest Reviews</h2>
-<ul>
+<h2>Ostatnie Recenzje</h2>
+<div class="review-grid">
     {% for review in latest_reviews %}
-    <li>
+    <div class="review-item">
         <h3>{{ review.movie.title }}</h3>
         <p>User: {{ review.user.display_name}}</p>
         <p>Review: {{ review.review_text }}</p>
         <p>Rating: {{ review.rating }}</p>
         <p>Posted on: {{ review.review_date }}</p>
-    </li>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
 {% endblock %}
