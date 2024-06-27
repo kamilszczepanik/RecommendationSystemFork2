@@ -65,4 +65,9 @@
         <td>{{ review.review_text }}</td>
     </tr>
     {% endfor %}
+</table>
+<a href="{% url 'review_app:add_review' movie_id=movie_details.movie.movie_id %}">Add Review</a>
+{% endblock %}
+
+{% block extra_css %}
 {% endblock %}
