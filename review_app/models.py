@@ -13,10 +13,33 @@ class Reviews(models.Model):
     review_date = models.DateField(auto_now=True)
     review_text = models.TextField(blank=True, null=True)
 
+
     class Meta:
         managed = False
         db_table = 'reviews'
 
+    def get_star_rating(self):
+        if self.rating is None:
+            return {
+                'full_stars': [],
+                'half_stars': 0,
+                'empty_stars': range(5)
+            }
+        full_stars = int(self.rating)
+        decimal_part = self.rating - full_stars
+
+        if 0.25 <= decimal_part < 0.75:
+            half_stars = 1
+        else:
+            half_stars = 0
+
+        empty_stars = 5 - full_stars - half_stars
+
+        return {
+            'full_stars': range(full_stars),
+            'half_stars': half_stars,
+            'empty_stars': range(empty_stars)
+        }
     def __str__(self):
         return self.user.display_name + ' - ' + self.review_text
 
