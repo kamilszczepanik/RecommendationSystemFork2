@@ -53,6 +53,23 @@
             {% endfor %}
         </div>
         <p><strong>Dodano:</strong> {{ review.review_date|date:"F d, Y" }}</p>
+
+        <h4>Comments</h4>
+        <div class="comment-grid">
+            {% for comment in review.moviecomments_set.all %}
+            <div class="comment-item">
+                <p><strong>Użytkownik:</strong> {{ comment.user.display_name }}</p>
+                <p><strong>Komentarz: {{ comment.comment_text }}</strong></p>
+            </div>
+            {% endfor %}
+            <h5>Add Comment</h5>
+            <form action="{% url 'review_app:add_comment' review_id=review.review_id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="review_id" value="{{ review.id }}">
+                <textarea name="comment_text" rows="4" cols="50"></textarea>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
     </div>
     {% endfor %}
 </div>
