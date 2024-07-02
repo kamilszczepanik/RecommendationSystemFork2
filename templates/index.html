@@ -12,8 +12,10 @@
 <div class="movie-grid">
     {% for movie in popular_movies %}
     <div class="movie-item">
-        <img class="poster" src="{{ movie.photo_url }}" alt="{{ movie.title }}">
-        <h3>{{ movie.title }}</h3>
+        <a href="{% url 'movie_app:movie_details' movie_id=movie.movie_id %}">
+            <img class="poster" src="{{ movie.photo_url }}" alt="{{ movie.title }}">
+            <h3>{{ movie.title }}</h3>
+        </a>
         <p>Ocena: {{ movie.rating }}</p>
         <div class="star-rating">
             {% for star in movie.get_star_rating.full_stars %}

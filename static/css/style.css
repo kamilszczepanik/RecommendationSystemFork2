@@ -90,13 +90,6 @@ nav a:hover {
     border-radius: 5px;
 }
 
-a {
-    color: white;
-    text-decoration: underline;
-    margin: 0 15px;
-    padding: 5px 10px;
-}
-
 .movie-grid {
     display: flex;
     flex-wrap: wrap;
@@ -259,6 +252,11 @@ a {
 
 .register-page-button:hover {
     background-color: #575a5e;
+}
+
+a {
+    color: white;
+    text-decoration: none;
 }
 
 main {
