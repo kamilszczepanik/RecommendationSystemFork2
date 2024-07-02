@@ -109,7 +109,7 @@ class Movies(models.Model):
 
     @classmethod
     def get_movies_head(cls):
-        return cls.get_movies_details()[:20]
+        return cls.get_movies_details()[:100]
 
     @classmethod
     def query_movies(cls, title=None, genre=None):
