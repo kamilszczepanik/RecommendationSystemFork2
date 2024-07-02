@@ -18,3 +18,14 @@ def homepage(request):
 
 def about(request):
     return render(request, 'about.html')
+
+
+def search_view(request):
+    query = request.GET.get('q', '').strip()
+    movies = Movies.objects.filter(title__icontains=query) if query else []
+    return render(request, 'search_results.html', {'movies': movies})
+
+
+
+
+

@@ -17,7 +17,7 @@ def display_movie_details(request, movie_id):
     reviews = Reviews.get_review_for_movie(movie_details['movie'])
     context = {
         'movie_details': movie_details,
-        'reviews': reviews,
+        'reviews': reviews
     }
     return render(request, 'movie_details.html', context=context)
 def display_sample_movie_details(request):
@@ -28,4 +28,3 @@ def display_sample_movie_details(request):
         'reviews': reviews
     }
     return render(request, 'movie_details.html', context=context)
-
