@@ -6,9 +6,13 @@ from review_app.models import Reviews
 # Create your views here.
 
 def display_movies(request):
-    movies_details = Movies.get_movies_head()
-    return render(request, 'movies.html', {'movies_details': movies_details})
-
+    popular_movies = Movies.get_popular_movies()
+    latest_reviews = Reviews.objects.all().order_by('-review_date')[:5]
+    context = {
+        'popular_movies': popular_movies,
+        'latest_reviews': latest_reviews
+    }
+    return render(request, 'movies.html', context)
 
 def display_movie_details(request, movie_id):
     movie_details = Movies.get_movie_details(movie_id)
@@ -26,3 +30,4 @@ def display_sample_movie_details(request):
         'reviews': reviews
     }
     return render(request, 'movie_details.html', context=context)
+
