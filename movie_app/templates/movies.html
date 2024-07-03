@@ -39,14 +39,7 @@ Movies
                     {{ cast.display_name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
-            <div class="reviews">
-                {% for review in movie_details.reviews %}
-                <div class="review">
-                    <b>{{ review.user }}</b>
-                    <p>{{ review.review_text }}</p>
-                </div>
-                {% endfor %}
-            </div>
+
         </div>
     </div>
     {% endfor %}

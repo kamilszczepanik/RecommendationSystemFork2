@@ -347,6 +347,7 @@ a {
     text-align: left;
     margin-left: 30px;
     max-width: 100%;
+
 }
 
 .movie-info h1 {
@@ -359,12 +360,23 @@ a {
     margin: 10px 0;
     line-height: 1.5;
     width: 100%;
+    position: relative;
+    padding: 2px;
 }
 
 .movie-info p strong {
     width: 150px;
     display: inline-block;
     color: #1E90FF;
+    padding: 2px;
+
+}
+.movie-info p span {
+    position: absolute;
+    text-align: left;
+    padding: 2px;
+
+
 }
 
 
@@ -380,6 +392,7 @@ a {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
+    overflow: hidden;
 }
 
 /* Individual review item styling in movie details */
@@ -392,6 +405,8 @@ a {
     width: calc(100% - 50px);
     margin-left: auto;
     margin-right: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .review-item-mdetails h3 {
     text-align: left;
@@ -405,6 +420,8 @@ a {
     color: #FFFFFF;
     font-size: 1em;
     margin: 5px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .review-item-mdetails b {
@@ -466,7 +483,155 @@ a {
     background-color: #575a5e;
 }
 
+/* Styles for add_review.html */
 
+.add-review-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #232F3E, #0C151A);
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.add-review-container h1, .add-review-container h3 {
+    color: #1E90FF;
+    margin-bottom: 20px;
+}
+
+.add-review-container img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+.add-review-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.add-review-container label {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 5px;
+    color: #1E90FF;
+}
+
+.add-review-container textarea,
+.add-review-container input[type="number"],
+.add-review-container input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    background-color: #1A242F;
+    color: #FFFFFF;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.add-review-container textarea {
+    resize: none; /* This line prevents resizing of the textarea */
+}
+
+.add-review-container textarea:focus,
+.add-review-container input[type="number"]:focus,
+.add-review-container input[type="text"]:focus {
+    outline: none;
+    background-color: #2A3948;
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+}
+
+.add-review-container input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-review-container input[type="submit"]:hover {
+    background-color: #575a5e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/*comment section */
+.comment-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #0C1216;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.comment-item {
+    background-color: #1A242F;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.comment-item p {
+    margin: 5px 0;
+}
+
+.comment-grid h5 {
+    color: #1E90FF;
+    margin-top: 20px;
+}
+
+.comment-grid form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-grid textarea {
+    resize: none;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #18222B;
+    color: #FFFFFF;
+    font-size: 1em;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-grid textarea:focus {
+    outline: none;
+    background-color: #27343F;
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+}
+
+.comment-grid input[type="submit"] {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.comment-grid input[type="submit"]:hover {
+    background-color: #575a5e;
+}
 
 
 

@@ -10,13 +10,13 @@
         <img src="{{ movie_details.movie.photo_url }}" alt="Movie Poster">
     </div>
     <div class="movie-info">
-        <h1>{{ movie_details.movie.title }}</h1>
-        <p><strong>Production Year:</strong> {{ movie_details.movie.production_year }}</p>
-        <p><strong>Rating:</strong> {{ movie_details.movie.rating }}</p>
-        <p><strong>Certificate:</strong> {{ movie_details.movie.certificate }}</p>
-        <p><strong>Duration:</strong> {{ movie_details.movie.duration }} minutes</p>
-        <p><strong>Description:</strong> {{ movie_details.movie.description }}</p>
-        <p><strong>Votes:</strong> {{ movie_details.movie.votes }}</p>
+    <h1>{{ movie_details.movie.title }}</h1>
+    <p><strong>Production Year:</strong> <span>{{ movie_details.movie.production_year }}</span></p>
+    <p><strong>Rating:</strong> <span>{{ movie_details.movie.rating }}</span></p>
+    <p><strong>Certificate:</strong> <span>{{ movie_details.movie.certificate }}</span></p>
+    <p><strong>Duration:</strong> <span>{{ movie_details.movie.duration }} minutes</span></p>
+    <p><strong>Votes:</strong> <span>{{ movie_details.movie.votes }}</span></p>
+
         <p><strong>Genre:</strong>
             {% for genre in movie_details.genres %}
                 {{ genre.display_name }}{% if not forloop.last %}, {% endif %}
@@ -32,6 +32,7 @@
                 {{ cast.display_name }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
         </p>
+        <p><strong>Description:</strong> <span>{{ movie_details.movie.description }}</span></p>
     </div>
 </div>
 
