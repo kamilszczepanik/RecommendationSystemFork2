@@ -10,7 +10,7 @@ class Reviews(models.Model):
     movie = models.ForeignKey(Movies, models.DO_NOTHING)
     user = models.ForeignKey(Users, models.DO_NOTHING)
     rating = models.IntegerField()
-    review_date = models.DateField(auto_now=True)
+    review_date = models.DateTimeField(auto_now=True)
     review_text = models.TextField(blank=True, null=True)
 
 
@@ -61,7 +61,7 @@ class Reviews(models.Model):
 
     @classmethod
     def get_latest_review(cls):
-        return cls.objects.all().order_by('review_date')[:3]
+        return cls.objects.all().order_by('-review_date')[:]
 
     @classmethod
     def query_reviews(cls, movie=None, author=None):
