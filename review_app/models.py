@@ -106,3 +106,7 @@ class Moviecomments(models.Model):
     def sort_comments(self, review, user):
         comments = self.query_comments(review=review, user=user)
         return comments.order_by('date')
+
+    @classmethod
+    def get_comments_for_review(cls, review_id):
+        return cls.objects.filter(review__id=review_id)
