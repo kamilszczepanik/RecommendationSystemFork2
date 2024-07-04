@@ -19,7 +19,6 @@ def display_movie_details(request, movie_id):
         'movie_details': movie_details,
         'reviews': reviews,
     }
-    print(comments)
     return render(request, 'movie_details.html', context=context)
 def display_sample_movie_details(request):
     movie_details = Movies.get_movie_details(1)

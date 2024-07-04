@@ -10,13 +10,12 @@
         <img src="{{ movie_details.movie.photo_url }}" alt="Movie Poster">
     </div>
     <div class="movie-info">
-    <h1>{{ movie_details.movie.title }}</h1>
-    <p><strong>Production Year:</strong> <span>{{ movie_details.movie.production_year }}</span></p>
-    <p><strong>Rating:</strong> <span>{{ movie_details.movie.rating }}</span></p>
-    <p><strong>Certificate:</strong> <span>{{ movie_details.movie.certificate }}</span></p>
-    <p><strong>Duration:</strong> <span>{{ movie_details.movie.duration }} minutes</span></p>
-    <p><strong>Votes:</strong> <span>{{ movie_details.movie.votes }}</span></p>
-
+        <h1>{{ movie_details.movie.title }}</h1>
+        <p><strong>Production Year:</strong> <span>{{ movie_details.movie.production_year }}</span></p>
+        <p><strong>Rating:</strong> <span>{{ movie_details.movie.rating }}</span></p>
+        <p><strong>Certificate:</strong> <span>{{ movie_details.movie.certificate }}</span></p>
+        <p><strong>Duration:</strong> <span>{{ movie_details.movie.duration }} minutes</span></p>
+        <p><strong>Votes:</strong> <span>{{ movie_details.movie.votes }}</span></p>
         <p><strong>Genre:</strong>
             {% for genre in movie_details.genres %}
                 {{ genre.display_name }}{% if not forloop.last %}, {% endif %}
@@ -36,7 +35,6 @@
     </div>
 </div>
 
-
 <h3>Reviews</h3>
 <div class="reviews-container-mdetails">
     {% for review in reviews %}
@@ -48,10 +46,13 @@
         {% for comment in review.moviecomments_set.all %}
              <p>{{ comment.user.display_name }}: {{ comment.comment_text }}</p>
         {% endfor %}
+        <a href="{% url 'review_app:add_comment' review_id=review.review_id %}" class="add-comment-button">Add Comment</a>
+
     {% endfor %}
     <a href="{% url 'review_app:add_review' movie_id=movie_details.movie.movie_id %}" class="add-review-button">Add Review</a>
 </div>
 {% endblock %}
 
 {% block extra_css %}
+
 {% endblock %}

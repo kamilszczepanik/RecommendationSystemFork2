@@ -30,7 +30,7 @@ def add_comment(request, review_id):
             new_comment.review = review
             new_comment.user = request.user
             new_comment.save()
-            return redirect('home')
+            return redirect('movie_app:movie_details', movie_id=movie_id)
     else:
         form = CommentForm()
-    return render(request, 'index.html', {'form': form, 'review': review})
+    return render(request, 'add_comment.html', {'form': form, 'review': review})
