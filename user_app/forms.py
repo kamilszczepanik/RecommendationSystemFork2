@@ -7,8 +7,10 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Users
-        fields = ['login', 'display_name', 'password']
-
+        fields = ['login', 'password', 'email', 'first_name', 'surname']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
         password_hash = make_password(self.cleaned_data['password'])

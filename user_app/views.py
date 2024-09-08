@@ -1,6 +1,8 @@
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from .models import Users, Favouritemovies
 from review_app.models import Reviews
+from movie_app.models import Movies
 from .forms import UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -15,6 +17,7 @@ def display_users_page(request):
     reviews = Reviews.get_reviews_head()
     return render(request, 'users.html',
                   {'users': users, 'reviews': reviews})
+
 
 @login_required(login_url='user_app:login')
 def display_user_details_page(request, user_id):
@@ -54,22 +57,21 @@ def display_login_page(request):
     return render(request, 'login.html', context=context)
 
 
-
-
 def display_logout_page(request):
     logout(request)
-    if request.method == 'POST':
-        return redirect('user_app:login')
-    else:
-        return render(request, 'logout.html')
+    return redirect('home')
 
 
 def display_register_page(request):
+    print(f"users: {Users.get_users()}")
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            login(request, form.save())
-            return redirect('user_app:login')
+            try:
+                login(request, form.save())
+                return redirect('user_app:login')
+            except IntegrityError:
+                form.add_error(None, "A user with this login already exists.")
     else:
         form = UserRegistrationForm()
     context = {'form': form}

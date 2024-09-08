@@ -43,7 +43,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
         db_table = 'users'
 
     def __str__(self):
-        return self.display_name
+        return self.login
 
     @property
     def is_anonymous(self):
@@ -63,7 +63,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
 
     @property
     def password(self):
-        return self.password_hash.tobytes().decode()
+        return bytes(self.password_hash).decode()
 
     @password.setter
     def set_password(self, raw_password):
