@@ -8,7 +8,7 @@ def homepage(request):
     context = {
         'popular_movies': popular_movies,
         'latest_reviews': latest_reviews,
-        'range': range(1, 6)  # Dodajemy listę range do kontekstu
+        'range': range(1, 6)
     }
     return render(request, 'index.html', context=context)
 
