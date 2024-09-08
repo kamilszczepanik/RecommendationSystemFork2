@@ -6,6 +6,11 @@ About
 
 {% block content %}
 <main>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     <div class="user-details-container">
         <h1>User Details Page</h1>
         <p>Here you can see the details of the user.</p>

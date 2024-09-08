@@ -9,6 +9,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import messages
 
 
 # Create your views here.
@@ -18,7 +19,6 @@ def display_users_page(request):
     return render(request, 'users.html',
                   {'users': users, 'reviews': reviews})
 
-
 @login_required(login_url='user_app:login')
 def display_user_details_page(request, user_id):
     user = Users.get_user(user_id)
@@ -26,6 +26,8 @@ def display_user_details_page(request, user_id):
     user_reviews = user.get_user_reviews()
     context = {'user': user, 'user_favorite_movies': user_favorite_movies,
                'user_reviews': user_reviews}
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to log in to see the user details page.')
     return render(request, 'user_details.html', context=context)
 
 
