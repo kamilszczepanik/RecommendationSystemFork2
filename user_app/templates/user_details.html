@@ -12,8 +12,10 @@ About
         {% endfor %}
     {% endif %}
     <div class="user-details-container">
+
         <h1>User Details Page</h1>
         <p>Here you can see the details of the user.</p>
+
 
         <section class="user-data-section">
             <h3>User Data</h3>
@@ -22,14 +24,6 @@ About
                     <tr>
                         <th>Login</th>
                         <td>{{ user.login }}</td>
-                    </tr>
-                    <tr>
-                        <th>Salt</th>
-                        <td>{{ user.salt }}</td>
-                    </tr>
-                    <tr>
-                        <th>Display Name</th>
-                        <td>{{ user.display_name }}</td>
                     </tr>
                     <tr>
                         <th>User Role</th>
