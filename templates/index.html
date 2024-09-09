@@ -8,6 +8,33 @@
 <h1>Strona Główna</h1>
 <p>Witamy w aplikacji rekomendującej filmy!</p>
 
+{% if user.is_authenticated and recommended_movies|length > 0 %}
+<h2>Polecane dla Ciebie</h2>
+<div class="movie-grid">
+    {% for movie in recommended_movies %}
+    <div class="movie-item">
+        <a href="{% url 'movie_app:movie_details' movie_id=movie.movie_id %}">
+            <img class="poster" src="{{ movie.photo_url }}" alt="{{ movie.title }}">
+            <h3>{{ movie.title }}</h3>
+        </a>
+        <p>Ocena: {{ movie.rating }}</p>
+        <div class="star-rating">
+            {% for star in movie.get_star_rating.full_stars %}
+                <span class="star filled">&#9733;</span>
+            {% endfor %}
+            {% if movie.get_star_rating.half_stars %}
+                <span class="star">&#9733;</span>
+            {% endif %}
+            {% for star in movie.get_star_rating.empty_stars %}
+                <span class="star">&#9734;</span>
+            {% endfor %}
+        </div>
+        <p>Liczba głosów: {{ movie.votes }}</p>
+    </div>
+    {% endfor %}
+</div>
+{%endif%}
+
 <h2>Najpopularniejsze Filmy</h2>
 <div class="movie-grid">
     {% for movie in popular_movies %}
