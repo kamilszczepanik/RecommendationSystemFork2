@@ -42,13 +42,12 @@ class MovieRecommender:
         some_user: Users = ...
         recommended_movies: Movies = MovieRecommender(count=50).user_recommendations(some_user)
         """
-        # TODO(@Michał Bugdoł, @???) - blocked by registration & movie pages
-        pass
+        return self.__from_recent_positive_reviews(user=user)
 
     def __from_positive_reviews(self, movie: Movies) -> Movies:
         # TODO(@Michał Bugdoł) - order by -date and limit to __search_limit?
         positive_reviews = Reviews.objects.filter(
-            movie=movie, rating__gte=MovieRecommender.rating_threshold
+            movie__in=movie, rating__gte=MovieRecommender.rating_threshold
         )
         recommending_users = positive_reviews.values_list("user", flat=True)
         users_recommend_movies = (
@@ -56,19 +55,30 @@ class MovieRecommender:
                 user__in=recommending_users,
                 rating__gte=MovieRecommender.rating_threshold,
             )
-            .exclude(movie=movie)
+            .exclude(movie__in=movie)
             .values_list("movie", flat=True)
         )
         movies = Movies.objects.filter(movie_id__in=users_recommend_movies).distinct()
         return movies
 
     def __popular_in_genres(self, movie: Movies) -> Movies:
-        genres = Genredetails.objects.filter(genre__movie=movie)
+        genres = Genredetails.objects.filter(genre__movie__in=movie)
         movies = (
             Movies.objects.filter(
                 genre__genre__in=genres, rating__gte=MovieRecommender.rating_threshold
             )
-            .exclude(movie_id=movie.movie_id)
+            .exclude(movie_id__in=movie.values("movie_id"))
             .distinct()
         )
         return movies
+
+    def __from_recent_positive_reviews(self, user: Users) -> Movies:
+        limit_reviews = 10
+        recent_reviews = Reviews.objects.filter(
+            user=user, rating__gte=MovieRecommender.rating_threshold
+        )[:limit_reviews]
+        liked_movies = Movies.objects.filter(
+            movie_id__in=recent_reviews.values_list("movie", flat=True)
+        )
+
+        return self.movie_recommendations(liked_movies)
