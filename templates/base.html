@@ -21,7 +21,6 @@
     <nav>
         <a href="/">Home</a>
         <a href="{% url 'movie_app:movies' %}">Movies</a>
-        <a href="{% url 'movie_app:sample_movie_details' %}">Movies Details</a>
         <a href="{% url 'about' %}">About</a>
         {% if user.is_authenticated %}
             <a href="{% url 'user_app:user_details' user_id=user.user_id%}">User Details</a>
