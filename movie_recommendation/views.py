@@ -28,10 +28,9 @@ def search_view(request):
 def search_movies(request):
     query = request.GET.get('q', '').strip()
     if query:
-        movies = Movies.objects.filter(title__icontains=query).distinct('title')[:8]
-        results = [{'title': movie.title} for movie in movies]
+        movies = Movies.objects.filter(title__icontains=query)[:8]
+        results = [{'id': movie.movie_id, 'title': movie.title} for movie in movies]
         return JsonResponse(results, safe=False)
     return JsonResponse({'message': 'No results found'}, status=404)
-
 
 
