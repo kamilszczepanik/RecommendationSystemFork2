@@ -96,6 +96,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
         pass
 
     def save(self, *args, **kwargs):
+        self.display_name = f"{self.surname} {self.first_name}"
         super().save(*args, **kwargs)
 
     def check_password(self, raw_password):
