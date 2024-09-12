@@ -1,0 +1,43 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+W tej sekcji opisano kroki instalacji oraz konfiguracji aplikacji do rekomendacji filmów. Instrukcje dotyczą zarówno uruchomienia aplikacji lokalnie, jak i konfiguracji środowiska produkcyjnego.
+
+\subsection{Wymagania systemowe}
+Aby uruchomić aplikację, wymagane są następujące komponenty:
+\begin{itemize}
+	\item \texttt{Python}: Wersja $3.8$ lub wyższa,
+    \item \texttt{Django}: Wersja $3.x$,
+    \item \texttt{PostgreSQL}: Baza danych \texttt{PostgreSQL} do przechowywania danych filmów, recenzji, użytkowników itp.,
+    \item \texttt{Virtualenv} (opcjonalnie): Umożliwia instalację i uruchamianie aplikacji w izolowanym środowisku.
+\end{itemize}
+
+\subsection{Kroki instalacji}
+
+\newcommand{\quickcodefile}[2]{\inputminted[fontsize=\scriptsize]{#1}{./resources/code/instalacja/#2}}
+
+\begin{enumerate}
+	\item \textbf{Klonowanie repozytorium}: Pobierz kod źródłowy aplikacji, klonując repozytorium:
+	\quickcodefile{bash}{klonowanie.sh}
+	\item \textbf{Tworzenie wirtualnego środowiska}: W celu izolowania zależności aplikacji, zaleca się utworzenie wirtualnego środowiska:
+	\quickcodefile{bash}{venv.sh}
+	\item \textbf{Instalacja zależności}: Zainstaluj wszystkie wymagane pakiety na podstawie pliku \texttt{requirements.txt}:
+	\quickcodefile{bash}{pip_install.sh}
+	\item \textbf{Konfiguracja bazy danych PostgreSQL}: Aplikacja korzysta z PostgreSQL jako głównej bazy danych. Skonfiguruj bazę danych:
+	\begin{itemize}
+		\item Upewnij się, że PostgreSQL jest zainstalowany i uruchomiony.
+		\item Utwórz bazę danych dla aplikacji i wczytaj plik \linebreak
+		\texttt{movie\_recommendation\_database.sql}.
+	\end{itemize}
+	\item \textbf{Konfiguracja pliku \texttt{settings.py}}: W pliku \texttt{settings.py} dostosuj ustawienia bazy danych:
+	\quickcodefile{python}{settings.py}
+	\item \textbf{Migracja bazy danych}: Zastosuj migracje, aby utworzyć wszystkie potrzebne tabele w bazie danych:
+	\quickcodefile{bash}{migrate.sh}
+	\item \textbf{Uruchomienie serwera deweloperskiego}: Uruchom serwer deweloperski, aby sprawdzić działanie aplikacji lokalnie:
+	\quickcodefile{bash}{runserver.sh}
+	Aplikacja będzie dostępna pod adresem \texttt{http://127.0.0.1:8000/}.
+
+\end{enumerate}
+
+\end{document}
