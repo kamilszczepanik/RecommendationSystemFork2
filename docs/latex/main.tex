@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+
+% welcome Poland
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% \usepackage{float} % add forced-here [H] placement
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{hyperref} % links in the file
+\usepackage[section]{placeins} % forces figures to not float beyond their section
+\usepackage{subcaption} % subfigure
+% \usepackage{tabularx} % tabularx = let columns space themselves
+% \usepackage{xcolor} % colors
+\usepackage{minted} % Syntax highlight
+
+\usepackage{subfiles}
+
+\graphicspath{{./images/}}
+
+\newcommand{\vertline}{\unskip\ \vline\ }
+
+\begin{document}
+
+\title{
+{System rekomendacji filmów}\\
+{\large Projekt semestralny TAB}\\
+}
+\author{
+	Michał Bugdoł
+	\and
+	\textbf{Piotr Kluziok}
+	\and
+	Mateusz Kaszuba
+	\and
+	Albert Pasek
+}
+\date{\today}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Opis projektu}
+\subfile{opis/opis.tex}
+
+\section{Lista wymagań}
+\subfile{wymagania/wymagania.tex}
+
+\section{Diagram przypadków użycia}
+\subfile{use_case/use_case.tex}
+
+\section{Model danych}
+\subfile{model_danych/model_danych.tex}
+
+\end{document}
