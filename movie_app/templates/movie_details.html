@@ -44,7 +44,7 @@
         </div>
         <h4>Comments:</h4>
         {% for comment in review.moviecomments_set.all %}
-             <p>{{ comment.user.display_name }}: {{ comment.comment_text }}</p>
+             <p>{{ comment.user.login }}: {{ comment.comment_text }}</p>
         {% endfor %}
         <a href="{% url 'review_app:add_comment' review_id=review.review_id %}" class="add-comment-button">Add Comment</a>
 
