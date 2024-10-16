@@ -7,6 +7,48 @@ Movies
 {% block content %}
 <h1>Movies Page</h1>
 <p>Movies table joined</p>
+
+
+
+<!-- Formularz filtrowania -->
+<form method="GET" action="{% url 'movie_app:movies_list' %}">
+    <div>
+        <label for="genre">Gatunek:</label>
+        <select name="genre" id="genre">
+            <option value="">Wybierz gatunek</option> <!-- Opcja domyślna -->
+            {% for genre in genres %}
+                <option value="{{ genre.display_name }}" {% if request.GET.genre == genre.display_name %}selected{% endif %}>
+                    {{ genre.display_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="production_year">Rok produkcji:</label>
+        <input type="number" name="production_year" id="production_year" value="{{ request.GET.production_year }}">
+    </div>
+    <div>
+        <label for="cast">Obsada:</label>
+        <input type="text" name="cast" id="cast" value="{{ request.GET.cast }}">
+    </div>
+    <button type="submit">Filtruj</button> <!-- Przycisk do filtrowania -->
+</form>
+
+
+<!-- Formularz sortowania -->
+<form method="GET" action="{% url 'movie_app:movies_list' %}">
+    <div>
+        <label for="sort_by">Sortuj według:</label>
+        <select name="sort_by" id="sort_by">
+            <option value="rating" {% if request.GET.sort_by == 'rating' %}selected{% endif %}>Ocena</option>
+            <option value="production_year" {% if request.GET.sort_by == 'production_year' %}selected{% endif %}>Rok produkcji</option>
+            <option value="votes" {% if request.GET.sort_by == 'votes' %}selected{% endif %}>Liczba głosów</option>
+            <option value="duration" {% if request.GET.sort_by == 'duration' %}selected{% endif %}>Czas trwania</option>
+        </select>
+    </div>
+    <button type="submit">Sortuj</button> <!-- Przycisk do sortowania -->
+</form>
+
 <h3>Movies</h3>
 
 <div class="movie-card-container">
@@ -39,7 +81,6 @@ Movies
                     {{ cast.display_name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
-
         </div>
     </div>
     {% endfor %}

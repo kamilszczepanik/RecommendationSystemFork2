@@ -112,17 +112,29 @@ class Movies(models.Model):
         return cls.get_movies_details()[:100]
 
     @classmethod
-    def query_movies(cls, title=None, genre=None):
+    def query_movies(cls, genre=None, production_year=None, cast=None):
         queryset = cls.objects.all()
-        if title:
-            queryset = queryset.filter(title__icontains=title)
+
+        # Filtrowanie według gatunku
         if genre:
-            queryset = queryset.filter(genre__icontains=genre)
+            queryset = queryset.filter(genre__genre__display_name__icontains=genre)
+
+        # Filtrowanie według daty produkcji
+        if production_year:
+            queryset = queryset.filter(production_year=production_year)
+
+        # Filtrowanie według obsady
+        if cast:
+            queryset = queryset.filter(moviecast__celebrity__display_name__icontains=cast)
+
         return queryset
 
     @classmethod
-    def sort_movies(cls, title=None, genre=None, sort_by='rating'):
-        movies = cls.query_movies(title=title, genre=genre)
+    def sort_movies(cls, genre=None, production_year=None, cast=None, sort_by='rating'):
+        # Wywołanie filtrowania filmów
+        movies = cls.query_movies(genre=genre, production_year=production_year, cast=cast)
+
+        # Sortowanie według podanego pola
         return movies.order_by(sort_by)
 
 
