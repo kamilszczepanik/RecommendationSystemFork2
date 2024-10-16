@@ -5,17 +5,14 @@ Movies
 {% endblock %}
 
 {% block content %}
-<h1>Movies Page</h1>
-<p>Movies table joined</p>
-
 
 
 <!-- Formularz filtrowania -->
-<form method="GET" action="{% url 'movie_app:movies_list' %}">
-    <div>
+<form method="GET" action="{% url 'movie_app:movies_list' %}" class="filter-form">
+    <div class="form-group">
         <label for="genre">Gatunek:</label>
-        <select name="genre" id="genre">
-            <option value="">Wybierz gatunek</option> <!-- Opcja domyślna -->
+        <select name="genre" id="genre" class="form-input">
+            <option value="">Wybierz gatunek</option>
             {% for genre in genres %}
                 <option value="{{ genre.display_name }}" {% if request.GET.genre == genre.display_name %}selected{% endif %}>
                     {{ genre.display_name }}
@@ -23,36 +20,34 @@ Movies
             {% endfor %}
         </select>
     </div>
-    <div>
+    <div class="form-group">
         <label for="production_year">Rok produkcji:</label>
-        <input type="number" name="production_year" id="production_year" value="{{ request.GET.production_year }}">
+        <input type="number" name="production_year" id="production_year" value="{{ request.GET.production_year }}" class="form-input">
     </div>
-    <div>
+    <div class="form-group">
         <label for="cast">Obsada:</label>
-        <input type="text" name="cast" id="cast" value="{{ request.GET.cast }}">
+        <input type="text" name="cast" id="cast" value="{{ request.GET.cast }}" class="form-input">
     </div>
-    <button type="submit">Filtruj</button> <!-- Przycisk do filtrowania -->
+    <button type="submit" class="btn-filter">Filtruj</button> <!-- Przycisk do filtrowania -->
 </form>
 
-
 <!-- Formularz sortowania -->
-<form method="GET" action="{% url 'movie_app:movies_list' %}">
-
+<form method="GET" action="{% url 'movie_app:movies_list' %}" class="sort-form">
     <!-- Ukryte pola dla zachowania aktualnych filtrów -->
     <input type="hidden" name="genre" value="{{ request.GET.genre }}">
     <input type="hidden" name="production_year" value="{{ request.GET.production_year }}">
-    <input type="hidden" name="cast" value="{{ request.GET.cast }}
-    
-    <div>
+    <input type="hidden" name="cast" value="{{ request.GET.cast }}">
+
+    <div class="form-group">
         <label for="sort_by">Sortuj według:</label>
-        <select name="sort_by" id="sort_by">
+        <select name="sort_by" id="sort_by" class="form-input">
             <option value="rating_desc" {% if request.GET.sort_by == 'rating_desc' %}selected{% endif %}>Ocena malejąco</option>
             <option value="rating_asc" {% if request.GET.sort_by == 'rating_asc' %}selected{% endif %}>Ocena rosnąco</option>
             <option value="votes_desc" {% if request.GET.sort_by == 'votes_desc' %}selected{% endif %}>Liczba głosów malejąco</option>
             <option value="votes_asc" {% if request.GET.sort_by == 'votes_asc' %}selected{% endif %}>Liczba głosów rosnąco</option>
         </select>
     </div>
-    <button type="submit">Sortuj</button> <!-- Przycisk do sortowania -->
+    <button type="submit" class="btn-sort">Sortuj</button> <!-- Przycisk do sortowania -->
 </form>
 
 
