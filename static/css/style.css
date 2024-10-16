@@ -858,8 +858,8 @@ a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 10px;
     max-width: 350px;
-    margin: 10 auto;
     text-align: left;
+    margin-left: 55px; /* Dodanie marginesu 50px z lewej strony */
 }
 
 
