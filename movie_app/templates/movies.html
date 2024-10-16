@@ -37,13 +37,19 @@ Movies
 
 <!-- Formularz sortowania -->
 <form method="GET" action="{% url 'movie_app:movies_list' %}">
+
+    <!-- Ukryte pola dla zachowania aktualnych filtrów -->
+    <input type="hidden" name="genre" value="{{ request.GET.genre }}">
+    <input type="hidden" name="production_year" value="{{ request.GET.production_year }}">
+    <input type="hidden" name="cast" value="{{ request.GET.cast }}
+    
     <div>
         <label for="sort_by">Sortuj według:</label>
         <select name="sort_by" id="sort_by">
-            <option value="rating_asc" {% if request.GET.sort_by == 'rating_asc' %}selected{% endif %}>Ocena rosnąco</option>
             <option value="rating_desc" {% if request.GET.sort_by == 'rating_desc' %}selected{% endif %}>Ocena malejąco</option>
-            <option value="votes_asc" {% if request.GET.sort_by == 'votes_asc' %}selected{% endif %}>Liczba głosów rosnąco</option>
+            <option value="rating_asc" {% if request.GET.sort_by == 'rating_asc' %}selected{% endif %}>Ocena rosnąco</option>
             <option value="votes_desc" {% if request.GET.sort_by == 'votes_desc' %}selected{% endif %}>Liczba głosów malejąco</option>
+            <option value="votes_asc" {% if request.GET.sort_by == 'votes_asc' %}selected{% endif %}>Liczba głosów rosnąco</option>
         </select>
     </div>
     <button type="submit">Sortuj</button> <!-- Przycisk do sortowania -->
