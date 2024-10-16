@@ -123,9 +123,6 @@ class Movies(models.Model):
         if production_year:
             queryset = queryset.filter(production_year=production_year)
 
-        # Filtrowanie według obsady
-        if cast:
-            queryset = queryset.filter(moviecast__celebrity__display_name__icontains=cast)
 
         return queryset
 
@@ -135,7 +132,23 @@ class Movies(models.Model):
         movies = cls.query_movies(genre=genre, production_year=production_year, cast=cast)
 
         # Sortowanie według podanego pola
-        return movies.order_by(sort_by)
+        movies = movies.order_by(sort_by)
+
+        # Przekształcenie każdego filmu na szczegóły, aby zawierał więcej danych
+        movies_details = []
+        for movie in movies:
+            genres = Genredetails.objects.filter(genre__movie=movie)
+            directors = Directorsdetails.objects.filter(directors__movie=movie)
+            casts = Moviecastdetails.objects.filter(moviecast__movie=movie)
+            movie_details = {
+                'movie': movie,
+                'genres': genres,
+                'directors': directors,
+                'casts': casts,
+            }
+            movies_details.append(movie_details)
+
+        return movies_details
 
 
 class Directors(models.Model):

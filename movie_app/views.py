@@ -34,10 +34,20 @@ def movies_list(request):
     # Pobranie wszystkich dostępnych gatunków do listy rozwijanej
     genres = Genredetails.objects.all()
 
+    # Obsługa różnych opcji sortowania
+    if sort_by == 'rating_asc':
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by='rating')
+    elif sort_by == 'rating_desc':
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by='-rating')
+    elif sort_by == 'votes_asc':
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by='votes')
+    elif sort_by == 'votes_desc':
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by='-votes')
+    else:
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by=sort_by)
 
-
-    # Filtrowanie lub sortowanie filmów
-    filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by=sort_by)
+    # DEBUG: Sprawdzenie w konsoli Django
+    print("Przefiltrowane filmy: ", filtered_movies)
 
     # Przekazanie przefiltrowanych filmów i dostępnych gatunków do szablonu
     return render(request, 'movies.html', {
