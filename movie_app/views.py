@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from .models import Movies, Genredetails
 from review_app.models import Reviews, Moviecomments
+
+
+
 
 
 
@@ -25,6 +29,12 @@ def display_movie_details(request, movie_id):
     }
     return render(request, 'movie_details.html', context=context)
 
+# Funkcja ustawiania języka
+def set_language(request):
+    language = request.GET.get('language')
+    if language:
+        request.session['language'] = language
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def movies_list(request):
     # Pobierz parametry z zapytania GET
