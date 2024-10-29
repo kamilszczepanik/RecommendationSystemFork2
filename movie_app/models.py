@@ -131,12 +131,11 @@ class Movies(models.Model):
 
 
     @classmethod
-    def sort_movies(cls, genre=None, production_year=None, cast=None, director=None, sort_by='rating'):
+    def sort_movies(cls, genre=None, production_year=None, director=None, sort_by='rating'):
         # Przekazanie wszystkich parametrów do `query_movies`
         movies = cls.query_movies(
             genre=genre,
             production_year=production_year,
-            cast=cast,
             director=director
         )
 
@@ -148,12 +147,12 @@ class Movies(models.Model):
         for movie in movies:
             genres = Genredetails.objects.filter(genre__movie=movie)
             directors = Directorsdetails.objects.filter(directors__movie=movie)
-            casts = Moviecastdetails.objects.filter(moviecast__movie=movie)
+
             movie_details = {
                 'movie': movie,
                 'genres': genres,
                 'directors': directors,
-                'casts': casts,
+
             }
             movies_details.append(movie_details)
 
