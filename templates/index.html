@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Strona Główna
+    Home Page
 {% endblock %}
 
 {% block content %}
-<h1>Strona Główna</h1>
-<p>Witamy w aplikacji rekomendującej filmy!</p>
+<h1>Home Page</h1>
 
 {% if user.is_authenticated and recommended_movies|length > 0 %}
-<h2>Polecane dla Ciebie</h2>
+<h2>Recommended for You</h2>
 <div class="movie-grid">
     {% for movie in recommended_movies %}
     <div class="movie-item">
@@ -17,7 +16,7 @@
             <img class="poster" src="{{ movie.photo_url }}" alt="{{ movie.title }}">
             <h3>{{ movie.title }}</h3>
         </a>
-        <p>Ocena: {{ movie.rating }}</p>
+        <p>Rating: {{ movie.rating }}</p>
         <div class="star-rating">
             {% for star in movie.get_star_rating.full_stars %}
                 <span class="star filled">&#9733;</span>
@@ -29,13 +28,13 @@
                 <span class="star">&#9734;</span>
             {% endfor %}
         </div>
-        <p>Liczba głosów: {{ movie.votes }}</p>
+        <p>Votes: {{ movie.votes }}</p>
     </div>
     {% endfor %}
 </div>
-{%endif%}
+{% endif %}
 
-<h2>Najpopularniejsze Filmy</h2>
+<h2>Most Popular Movies</h2>
 <div class="movie-grid">
     {% for movie in popular_movies %}
     <div class="movie-item">
@@ -43,7 +42,7 @@
             <img class="poster" src="{{ movie.photo_url }}" alt="{{ movie.title }}">
             <h3>{{ movie.title }}</h3>
         </a>
-        <p>Ocena: {{ movie.rating }}</p>
+        <p>Rating: {{ movie.rating }}</p>
         <div class="star-rating">
             {% for star in movie.get_star_rating.full_stars %}
                 <span class="star filled">&#9733;</span>
@@ -55,19 +54,19 @@
                 <span class="star">&#9734;</span>
             {% endfor %}
         </div>
-        <p>Liczba głosów: {{ movie.votes }}</p>
+        <p>Votes: {{ movie.votes }}</p>
     </div>
     {% endfor %}
 </div>
 
-<h2>Ostatnie Recenzje</h2>
+<h2>Latest Reviews</h2>
 <div class="review-grid">
     {% for review in latest_reviews %}
     <div class="review-item">
         <h3>{{ review.movie.title }}</h3>
-        <p><strong>Użytkownik:</strong> {{ review.user.display_name }}</p>
-        <p class="review-item-content"><strong>Recenzja:</strong> {{ review.review_text }}</p>
-        <p><strong>Ocena:</strong> {{ review.rating }}</p>
+        <p><strong>User:</strong> {{ review.user.display_name }}</p>
+        <p class="review-item-content"><strong>Review:</strong> {{ review.review_text }}</p>
+        <p><strong>Rating:</strong> {{ review.rating }}</p>
         <div class="star-rating">
             {% for star in review.get_star_rating.full_stars %}
                 <span class="star filled">&#9733;</span>
@@ -79,9 +78,7 @@
                 <span class="star">&#9734;</span>
             {% endfor %}
         </div>
-        <p><strong>Dodano:</strong> {{ review.review_date|date:"F d, Y" }}</p>
-
-
+        <p><strong>Added on:</strong> {{ review.review_date|date:"F d, Y" }}</p>
     </div>
     {% endfor %}
 </div>

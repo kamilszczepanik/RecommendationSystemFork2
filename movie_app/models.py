@@ -112,18 +112,52 @@ class Movies(models.Model):
         return cls.get_movies_details()[:100]
 
     @classmethod
-    def query_movies(cls, title=None, genre=None):
+    def query_movies(cls, genre=None, production_year=None, cast=None, director=None):
         queryset = cls.objects.all()
-        if title:
-            queryset = queryset.filter(title__icontains=title)
+
+        # Filtrowanie według gatunku
         if genre:
-            queryset = queryset.filter(genre__icontains=genre)
+            queryset = queryset.filter(genre__genre__display_name__icontains=genre)
+
+        # Filtrowanie według daty produkcji
+        if production_year:
+            queryset = queryset.filter(production_year=production_year)
+
+        # Filtrowanie według reżysera
+        if director:
+            queryset = queryset.filter(directors__director__director_id=director)
+
         return queryset
 
+
     @classmethod
-    def sort_movies(cls, title=None, genre=None, sort_by='rating'):
-        movies = cls.query_movies(title=title, genre=genre)
-        return movies.order_by(sort_by)
+    def sort_movies(cls, genre=None, production_year=None, cast=None, director=None, sort_by='rating'):
+        # Przekazanie wszystkich parametrów do `query_movies`
+        movies = cls.query_movies(
+            genre=genre,
+            production_year=production_year,
+            cast=cast,
+            director=director
+        )
+
+        # Sortowanie według podanego pola
+        movies = movies.order_by(sort_by)
+
+        # Przekształcenie każdego filmu na szczegóły, aby zawierał więcej danych
+        movies_details = []
+        for movie in movies:
+            genres = Genredetails.objects.filter(genre__movie=movie)
+            directors = Directorsdetails.objects.filter(directors__movie=movie)
+            casts = Moviecastdetails.objects.filter(moviecast__movie=movie)
+            movie_details = {
+                'movie': movie,
+                'genres': genres,
+                'directors': directors,
+                'casts': casts,
+            }
+            movies_details.append(movie_details)
+
+        return movies_details
 
 
 class Directors(models.Model):
@@ -142,6 +176,14 @@ class Directorsdetails(models.Model):
     class Meta:
         managed = False
         db_table = 'directorsdetails'
+
+    def __str__(self):
+        return self.display_name
+
+    @classmethod
+    def get_distinct_directors(cls):
+        return cls.objects.all()
+
 
 
 class Genre(models.Model):

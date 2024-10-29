@@ -4,9 +4,62 @@
 Movies
 {% endblock %}
 
+
 {% block content %}
-<h1>Movies Page</h1>
-<p>Movies table joined</p>
+
+
+<!-- Formularz filtrowania -->
+<form method="GET" action="{% url 'movie_app:movies_list' %}" class="filter-form">
+    <div class="form-group">
+        <label for="genre">Genre:</label>
+        <select name="genre" id="genre" class="form-input">
+            <option value="">Select Genre</option>
+            {% for genre in genres %}
+                <option value="{{ genre.display_name }}" {% if request.GET.genre == genre.display_name %}selected{% endif %}>
+                    {{ genre.display_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="production_year">Production Year:</label>
+        <input type="number" name="production_year" id="production_year" value="{{ request.GET.production_year }}" class="form-input">
+    </div>
+    <div class="form-group">
+        <label for="director">Director:</label>
+        <select name="director" id="director" class="form-input">
+                <option value="">Select Director</option>
+            {% for director in directors %}
+                    <option value="{{ director.director_id }}" {% if request.GET.director == director.director_id|stringformat:"s" %}selected{% endif %}>
+                    {{ director.display_name }}
+                 </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn-filter">Filter</button>
+</form>
+
+
+<!-- Formularz sortowania -->
+<form method="GET" action="{% url 'movie_app:movies_list' %}" class="sort-form">
+    <!-- Ukryte pola dla zachowania aktualnych filtrów -->
+    <input type="hidden" name="genre" value="{{ request.GET.genre }}">
+    <input type="hidden" name="production_year" value="{{ request.GET.production_year }}">
+    <input type="hidden" name="cast" value="{{ request.GET.cast }}">
+
+    <div class="form-group">
+        <label for="sort_by">Sortuj według:</label>
+        <select name="sort_by" id="sort_by" class="form-input">
+            <option value="rating_desc" {% if request.GET.sort_by == 'rating_desc' %}selected{% endif %}>Ocena malejąco</option>
+            <option value="rating_asc" {% if request.GET.sort_by == 'rating_asc' %}selected{% endif %}>Ocena rosnąco</option>
+            <option value="votes_desc" {% if request.GET.sort_by == 'votes_desc' %}selected{% endif %}>Liczba głosów malejąco</option>
+            <option value="votes_asc" {% if request.GET.sort_by == 'votes_asc' %}selected{% endif %}>Liczba głosów rosnąco</option>
+        </select>
+    </div>
+    <button type="submit" class="btn-sort">Sortuj</button> <!-- Przycisk do sortowania -->
+</form>
+
+
 <h3>Movies</h3>
 
 <div class="movie-card-container">
@@ -17,9 +70,13 @@ Movies
         </div>
         <div class="movie-card-body">
             <h4>
-                <a href="{% url 'movie_app:movie_details' movie_id=movie_details.movie.movie_id %}">
-                    {{ movie_details.movie.title }}
-                </a>
+                {% if movie_details.movie.movie_id %}
+                    <a href="{% url 'movie_app:movie_details' movie_id=movie_details.movie.movie_id %}">
+                        {{ movie_details.movie.title }}
+                    </a>
+                {% else %}
+                    {{ movie_details.movie.title }}  <!-- Jeśli movie_id nie jest dostępny -->
+                {% endif %}
             </h4>
             <p><strong>Year:</strong> {{ movie_details.movie.production_year }}</p>
             <p><strong>Rating:</strong> {{ movie_details.movie.rating }}</p>
@@ -39,9 +96,9 @@ Movies
                     {{ cast.display_name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
-
         </div>
     </div>
     {% endfor %}
 </div>
+
 {% endblock %}
