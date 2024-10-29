@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .models import Movies, Genredetails
+from .models import Movies, Genredetails, Directorsdetails
 from review_app.models import Reviews, Moviecomments
 
 
@@ -29,41 +29,51 @@ def display_movie_details(request, movie_id):
     }
     return render(request, 'movie_details.html', context=context)
 
+
+
+
+def movies_list(request):
+    # Pobierz język z sesji, jeśli jest ustawiony
+    language = request.session.get('language', 'en')  # domyślnie ustawiony na angielski
+
+    # Pobierz parametry z zapytania GET
+    genre = request.GET.get('genre')
+    production_year = request.GET.get('production_year')
+    director = request.GET.get('director')
+    cast = request.GET.get('cast')
+    sort_by = request.GET.get('sort_by', 'rating_desc')  # Domyślnie sortowanie po ratingu
+
+    # Pobranie wszystkich dostępnych gatunków i reżyserów do listy rozwijanej
+    genres = Genredetails.objects.all()
+    directors = Directorsdetails.objects.all()
+
+
+    # Obsługa różnych opcji sortowania
+    if sort_by == 'rating_desc':
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, director=director, sort_by='-rating')
+    elif sort_by == 'rating_asc':
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, director=director, sort_by='rating')
+    elif sort_by == 'votes_desc':
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, director=director, sort_by='-votes')
+    elif sort_by == 'votes_asc':
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, director=director, sort_by='votes')
+    else:
+        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, director=director, sort_by=sort_by)
+
+    # Przekazanie przefiltrowanych filmów, dostępnych gatunków, reżyserów i języka do szablonu
+    return render(request, 'movies.html', {
+        'movies_details': filtered_movies,
+        'genres': genres,
+        'directors': directors,
+        'language': language  # Przekazujemy język do szablonu
+    })
+
+
+
+
 # Funkcja ustawiania języka
 def set_language(request):
     language = request.GET.get('language')
     if language:
         request.session['language'] = language
     return redirect(request.META.get('HTTP_REFERER', '/'))
-
-def movies_list(request):
-    # Pobierz parametry z zapytania GET
-    genre = request.GET.get('genre')
-    production_year = request.GET.get('production_year')
-    cast = request.GET.get('cast')
-    sort_by = request.GET.get('sort_by', 'rating_desc')  # Domyślnie sortowanie po ratingu
-
-    # Pobranie wszystkich dostępnych gatunków do listy rozwijanej
-    genres = Genredetails.objects.all()
-
-
-
-    # Obsługa różnych opcji sortowania
-    if  sort_by == 'rating_desc':
-        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by='-rating')
-    elif sort_by == 'rating_asc':
-        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by='rating')
-    elif sort_by == 'votes_desc':
-        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by='-votes')
-    elif sort_by == 'votes_asc':
-        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by='votes')
-    else:
-        filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, sort_by=sort_by)
-
-
-
-    # Przekazanie przefiltrowanych filmów i dostępnych gatunków do szablonu
-    return render(request, 'movies.html', {
-        'movies_details': filtered_movies,
-        'genres': genres  # przekazujemy wszystkie dostępne gatunki do formularza
-    })

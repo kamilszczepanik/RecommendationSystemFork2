@@ -4,15 +4,16 @@
 Movies
 {% endblock %}
 
+
 {% block content %}
 
 
 <!-- Formularz filtrowania -->
 <form method="GET" action="{% url 'movie_app:movies_list' %}" class="filter-form">
     <div class="form-group">
-        <label for="genre">Gatunek:</label>
+        <label for="genre">Genre:</label>
         <select name="genre" id="genre" class="form-input">
-            <option value="">Wybierz gatunek</option>
+            <option value="">Select Genre</option>
             {% for genre in genres %}
                 <option value="{{ genre.display_name }}" {% if request.GET.genre == genre.display_name %}selected{% endif %}>
                     {{ genre.display_name }}
@@ -21,15 +22,23 @@ Movies
         </select>
     </div>
     <div class="form-group">
-        <label for="production_year">Rok produkcji:</label>
+        <label for="production_year">Production Year:</label>
         <input type="number" name="production_year" id="production_year" value="{{ request.GET.production_year }}" class="form-input">
     </div>
     <div class="form-group">
-        <label for="cast">Obsada:</label>
-        <input type="text" name="cast" id="cast" value="{{ request.GET.cast }}" class="form-input">
+        <label for="director">Director:</label>
+        <select name="director" id="director" class="form-input">
+                <option value="">Select Director</option>
+            {% for director in directors %}
+                    <option value="{{ director.director_id }}" {% if request.GET.director == director.director_id|stringformat:"s" %}selected{% endif %}>
+                    {{ director.display_name }}
+                 </option>
+            {% endfor %}
+        </select>
     </div>
-    <button type="submit" class="btn-filter">Filtruj</button> <!-- Przycisk do filtrowania -->
+    <button type="submit" class="btn-filter">Filter</button>
 </form>
+
 
 <!-- Formularz sortowania -->
 <form method="GET" action="{% url 'movie_app:movies_list' %}" class="sort-form">

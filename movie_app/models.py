@@ -112,7 +112,7 @@ class Movies(models.Model):
         return cls.get_movies_details()[:100]
 
     @classmethod
-    def query_movies(cls, genre=None, production_year=None, cast=None):
+    def query_movies(cls, genre=None, production_year=None, cast=None, director=None):
         queryset = cls.objects.all()
 
         # Filtrowanie według gatunku
@@ -123,13 +123,22 @@ class Movies(models.Model):
         if production_year:
             queryset = queryset.filter(production_year=production_year)
 
+        # Filtrowanie według reżysera
+        if director:
+            queryset = queryset.filter(directors__director__director_id=director)
 
         return queryset
 
+
     @classmethod
-    def sort_movies(cls, genre=None, production_year=None, cast=None, sort_by='rating'):
-        # Wywołanie filtrowania filmów
-        movies = cls.query_movies(genre=genre, production_year=production_year, cast=cast)
+    def sort_movies(cls, genre=None, production_year=None, cast=None, director=None, sort_by='rating'):
+        # Przekazanie wszystkich parametrów do `query_movies`
+        movies = cls.query_movies(
+            genre=genre,
+            production_year=production_year,
+            cast=cast,
+            director=director
+        )
 
         # Sortowanie według podanego pola
         movies = movies.order_by(sort_by)
@@ -167,6 +176,14 @@ class Directorsdetails(models.Model):
     class Meta:
         managed = False
         db_table = 'directorsdetails'
+
+    def __str__(self):
+        return self.display_name
+
+    @classmethod
+    def get_distinct_directors(cls):
+        return cls.objects.all()
+
 
 
 class Genre(models.Model):
