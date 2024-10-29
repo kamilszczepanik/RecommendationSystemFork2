@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-Movies
+    {% trans "Movies" %}
 {% endblock %}
 
-
 {% block content %}
-
 
 <!-- Formularz filtrowania -->
 <form method="GET" action="{% url 'movie_app:movies_list' %}" class="filter-form">
     <div class="form-group">
-        <label for="genre">Genre:</label>
+        <label for="genre">{% trans "Genre:" %}</label>
         <select name="genre" id="genre" class="form-input">
-            <option value="">Select Genre</option>
+            <option value="">{% trans "Select Genre" %}</option>
             {% for genre in genres %}
                 <option value="{{ genre.display_name }}" {% if request.GET.genre == genre.display_name %}selected{% endif %}>
                     {{ genre.display_name }}
@@ -22,23 +21,22 @@ Movies
         </select>
     </div>
     <div class="form-group">
-        <label for="production_year">Production Year:</label>
+        <label for="production_year">{% trans "Production Year:" %}</label>
         <input type="number" name="production_year" id="production_year" value="{{ request.GET.production_year }}" class="form-input">
     </div>
     <div class="form-group">
-        <label for="director">Director:</label>
+        <label for="director">{% trans "Director:" %}</label>
         <select name="director" id="director" class="form-input">
-                <option value="">Select Director</option>
+            <option value="">{% trans "Select Director" %}</option>
             {% for director in directors %}
-                    <option value="{{ director.director_id }}" {% if request.GET.director == director.director_id|stringformat:"s" %}selected{% endif %}>
+                <option value="{{ director.director_id }}" {% if request.GET.director == director.director_id|stringformat:"s" %}selected{% endif %}>
                     {{ director.display_name }}
-                 </option>
+                </option>
             {% endfor %}
         </select>
     </div>
-    <button type="submit" class="btn-filter">Filter</button>
+    <button type="submit" class="btn-filter">{% trans "Filter" %}</button>
 </form>
-
 
 <!-- Formularz sortowania -->
 <form method="GET" action="{% url 'movie_app:movies_list' %}" class="sort-form">
@@ -48,19 +46,18 @@ Movies
     <input type="hidden" name="cast" value="{{ request.GET.cast }}">
 
     <div class="form-group">
-        <label for="sort_by">Sortuj według:</label>
+        <label for="sort_by">{% trans "Sort by:" %}</label>
         <select name="sort_by" id="sort_by" class="form-input">
-            <option value="rating_desc" {% if request.GET.sort_by == 'rating_desc' %}selected{% endif %}>Ocena malejąco</option>
-            <option value="rating_asc" {% if request.GET.sort_by == 'rating_asc' %}selected{% endif %}>Ocena rosnąco</option>
-            <option value="votes_desc" {% if request.GET.sort_by == 'votes_desc' %}selected{% endif %}>Liczba głosów malejąco</option>
-            <option value="votes_asc" {% if request.GET.sort_by == 'votes_asc' %}selected{% endif %}>Liczba głosów rosnąco</option>
+            <option value="rating_desc" {% if request.GET.sort_by == 'rating_desc' %}selected{% endif %}>{% trans "Rating Descending" %}</option>
+            <option value="rating_asc" {% if request.GET.sort_by == 'rating_asc' %}selected{% endif %}>{% trans "Rating Ascending" %}</option>
+            <option value="votes_desc" {% if request.GET.sort_by == 'votes_desc' %}selected{% endif %}>{% trans "Votes Descending" %}</option>
+            <option value="votes_asc" {% if request.GET.sort_by == 'votes_asc' %}selected{% endif %}>{% trans "Votes Ascending" %}</option>
         </select>
     </div>
-    <button type="submit" class="btn-sort">Sortuj</button> <!-- Przycisk do sortowania -->
+    <button type="submit" class="btn-sort">{% trans "Sort" %}</button>
 </form>
 
-
-<h3>Movies</h3>
+<h3>{% trans "Movies" %}</h3>
 
 <div class="movie-card-container">
     {% for movie_details in movies_details %}
@@ -69,29 +66,31 @@ Movies
             <img src="{{ movie_details.movie.photo_url }}" class="poster" alt="{{ movie_details.movie.title }} poster">
         </div>
         <div class="movie-card-body">
+
             <h4>
-                {% if movie_details.movie.movie_id %}
-                    <a href="{% url 'movie_app:movie_details' movie_id=movie_details.movie.movie_id %}">
-                        {{ movie_details.movie.title }}
-                    </a>
-                {% else %}
-                    {{ movie_details.movie.title }}  <!-- Jeśli movie_id nie jest dostępny -->
-                {% endif %}
-            </h4>
-            <p><strong>Year:</strong> {{ movie_details.movie.production_year }}</p>
-            <p><strong>Rating:</strong> {{ movie_details.movie.rating }}</p>
-            <p><strong>Votes:</strong> {{ movie_details.movie.votes }}</p>
-            <p><strong>Genres:</strong>
+    {% if movie_details.movie.movie_id %}
+       <a href="{% url 'movie_app:movie_details' movie_id=movie_details.movie.movie_id %}">
+             {{ movie_details.movie.title }}
+       </a>
+    {% else %}
+        {{ movie_details.movie.title }}
+    {% endif %}
+</h4>
+
+            <p><strong>{% trans "Year:" %}</strong> {{ movie_details.movie.production_year }}</p>
+            <p><strong>{% trans "Rating:" %}</strong> {{ movie_details.movie.rating }}</p>
+            <p><strong>{% trans "Votes:" %}</strong> {{ movie_details.movie.votes }}</p>
+            <p><strong>{% trans "Genres:" %}</strong>
                 {% for genre in movie_details.genres %}
                     {{ genre.display_name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
-            <p><strong>Directors:</strong>
+            <p><strong>{% trans "Directors:" %}</strong>
                 {% for director in movie_details.directors %}
                     {{ director.display_name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
-            <p><strong>Cast:</strong>
+            <p><strong>{% trans "Cast:" %}</strong>
                 {% for cast in movie_details.casts %}
                     {{ cast.display_name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
