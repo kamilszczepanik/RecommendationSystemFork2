@@ -20,7 +20,7 @@
 <header>
     <nav>
         <a href="/">Home</a>
-        <a href="{% url 'movie_app:movies' %}">Movies</a>
+        <a href="{% url 'movie_app:movies_list' %}">Movies</a>
         <a href="{% url 'about' %}">About</a>
            <form action="{% url 'movie_app:set_language' %}" method="get" style="display: inline-block; margin-left: 20px;">
             <select name="language" onchange="this.form.submit()">
