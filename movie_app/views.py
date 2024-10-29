@@ -33,8 +33,11 @@ def display_movie_details(request, movie_id):
 
 
 def movies_list(request):
-    # Pobierz język z sesji, jeśli jest ustawiony
-    language = request.session.get('language', 'en')  # domyślnie ustawiony na angielski
+    language = request.selected_language
+    if language:
+        request.session['language'] = language
+
+    print(f"language: {language}")
 
     # Pobierz parametry z zapytania GET
     genre = request.GET.get('genre')
