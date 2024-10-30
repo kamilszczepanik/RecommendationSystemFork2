@@ -10,14 +10,7 @@ from review_app.models import Reviews, Moviecomments
 
 # Create your views here.
 
-def display_movies(request):
-    movies_details = Movies.get_movies_head()
-    genres = Genredetails.objects.all()  # Pobieranie gatunków
-    context = {
-        'movies_details': movies_details,
-        'genres': genres  # Przekazanie gatunków do szablonu
-    }
-    return render(request, 'movies.html', context)
+
 
 
 def display_movie_details(request, movie_id):
@@ -32,13 +25,7 @@ def display_movie_details(request, movie_id):
 
 
 
-def movies_list(request):
-    language = request.selected_language
-    if language:
-        request.session['language'] = language
-
-    print(f"language: {language}")
-
+def display_movies(request):
     # Pobierz parametry z zapytania GET
     genre = request.GET.get('genre')
     production_year = request.GET.get('production_year')
@@ -49,7 +36,6 @@ def movies_list(request):
     # Pobranie wszystkich dostępnych gatunków i reżyserów do listy rozwijanej
     genres = Genredetails.objects.all()
     directors = Directorsdetails.objects.all()
-
 
     # Obsługa różnych opcji sortowania
     if sort_by == 'rating_desc':
@@ -63,20 +49,14 @@ def movies_list(request):
     else:
         filtered_movies = Movies.sort_movies(genre=genre, production_year=production_year, cast=cast, director=director, sort_by=sort_by)
 
-    # Przekazanie przefiltrowanych filmów, dostępnych gatunków, reżyserów i języka do szablonu
+    # Ograniczenie liczby filmów do 100
+    limited_movies = filtered_movies[:100]
+
+    # Przekazanie przefiltrowanych filmów, dostępnych gatunków i reżyserów do szablonu
     return render(request, 'movies.html', {
-        'movies_details': filtered_movies,
+        'movies_details': limited_movies,
         'genres': genres,
         'directors': directors,
-        'language': language  # Przekazujemy język do szablonu
     })
 
 
-
-
-# Funkcja ustawiania języka
-def set_language(request):
-    language = request.GET.get('language')
-    if language:
-        request.session['language'] = language
-    return redirect(request.META.get('HTTP_REFERER', '/'))
