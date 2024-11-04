@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from .models import Movies, Genredetails, Directorsdetails
 from review_app.models import Reviews, Moviecomments
+from django.views.decorators.http import require_POST
+
 
 
 
@@ -11,7 +13,12 @@ from review_app.models import Reviews, Moviecomments
 # Create your views here.
 
 
-
+def set_language(request):
+    language = request.POST.get('language')
+    if language in ['en', 'pl', 'de']:
+        request.session['language'] = language
+    # Przekierowanie na poprzednią stronę, aby odświeżyć widok
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def display_movie_details(request, movie_id):
     movie_details = Movies.get_movie_details(movie_id)

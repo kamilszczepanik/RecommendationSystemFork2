@@ -33,10 +33,18 @@
             </a>
         {% endif %}
     </nav>
+           <form action="{% url 'movie_app:set_language' %}" method="get" style="display: inline-block; margin-left: 20px;">
+            <select name="language" onchange="this.form.submit()">
+                <option value="en" {% if request.selected_language == 'en' %}selected{% endif %}>English</option>
+                <option value="pl" {% if request.selected_language == 'pl' %}selected{% endif %}>Polski</option>
+                <option value="de" {% if request.selected_language == 'de' %}selected{% endif %}>Deutsch</option>
+            </select>
+           </form>
+
+
     <div class="top-bar">
         <div class="search-bar">
             <form action="/search" method="get" autocomplete="off">
-                <!--<input type="text" name="q" placeholder="Search..." onkeyup="searchMovies(this.value)">-->
                 <input type="text" id="search-input" name="q" placeholder="Search..." autocomplete="off">
                 <button type="submit">Search</button>
             </form>

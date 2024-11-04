@@ -16,3 +16,5 @@ def translate_text(target_language, text):
         return result['data']['translations'][0]['translatedText']
     else:
         return text  # W razie błędu zwracamy oryginalny tekst
+
+

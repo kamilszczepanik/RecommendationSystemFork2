@@ -5,17 +5,18 @@ class TranslationMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # Sprawdź wybrany język w sesji lub ustaw domyślny na angielski
+        # Pobierz język wybrany przez użytkownika, domyślnie ustaw na angielski
         selected_language = request.session.get('language', 'en')
         request.selected_language = selected_language
 
-        # Obsłuż żądanie
+        # Wykonaj żądanie i odbierz odpowiedź
         response = self.get_response(request)
 
-        # Tłumaczenie odpowiedzi HTML
+        # Sprawdź, czy odpowiedź jest typu HTML
         if hasattr(response, 'content') and response['Content-Type'] == 'text/html; charset=utf-8':
             content = response.content.decode('utf-8')
-            translated_content = translate_text(selected_language, content)
-            response.content = translated_content.encode('utf-8')
+            if selected_language != 'en':  # Tłumaczenie tylko na polski lub niemiecki, gdy język nie jest angielski
+                translated_content = translate_text(selected_language, content)
+                response.content = translated_content.encode('utf-8')
 
         return response
