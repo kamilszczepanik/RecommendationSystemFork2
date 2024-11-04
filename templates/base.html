@@ -21,7 +21,7 @@
     <nav>
         <a href="/">Home</a>
         <a href="{% url 'movie_app:display_movies' %}">Movies</a>
-        <a href="{% url 'movie_app:upcoming_movies' %}">Nadchodzące premiery</a>
+        <a href="{% url 'movie_app:upcoming_movies' %}">Upcoming Movies</a>
         <a href="{% url 'about' %}">About</a>
         {% if user.is_authenticated %}
             <a href="{% url 'user_app:user_details' user_id=user.user_id%}">User Details</a>
@@ -41,7 +41,7 @@
         <option value="pl" {% if request.session.language == "pl" %}selected{% endif %}>Polski</option>
         <option value="de" {% if request.session.language == "de" %}selected{% endif %}>Deutsch</option>
     </select>
-    <button type="submit">Zmień język</button>
+    <button type="submit">Change Language</button>
 </form>
 
 <p>Wybrany język: {{ request.session.language }}</p>
