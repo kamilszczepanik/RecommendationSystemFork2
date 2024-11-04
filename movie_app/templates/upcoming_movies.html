@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Nadchodzące premiery</h1>
+<div class="upcoming-premieres-container">
+    {% for movie in movies %}
+        <div class="upcoming-premiere-card">
+            <img src="{{ movie.poster_url }}" alt="Poster for {{ movie.title }}">
+            <div class="upcoming-premiere-title">{{ movie.title }}</div>
+            <p><span class="upcoming-premiere-label">Rating:</span> {{ movie.vote_average }}</p>
+            <p><span class="upcoming-premiere-label">Votes:</span> {{ movie.vote_count }}</p>
+            <div class="upcoming-premiere-date">Premiera: {{ movie.release_date }}</div>
+            <p class="upcoming-premiere-description">{{ movie.overview }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

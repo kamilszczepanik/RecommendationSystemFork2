@@ -3,6 +3,9 @@ from django.shortcuts import redirect
 from .models import Movies, Genredetails, Directorsdetails
 from review_app.models import Reviews, Moviecomments
 from django.views.decorators.http import require_POST
+import requests
+from django.conf import settings
+
 
 
 
@@ -67,3 +70,15 @@ def display_movies(request):
     })
 
 
+def upcoming_movies(request):
+    api_key = settings.TMDB_API_KEY
+    url = f'https://api.themoviedb.org/3/movie/upcoming?api_key={api_key}&language=en-EN&region=PL'
+
+    response = requests.get(url)
+    movies = response.json().get('results', [])
+
+    base_image_url = "https://image.tmdb.org/t/p/w500"  # w500 to rozmiar obrazka
+    for movie in movies:
+        movie['poster_url'] = f"{base_image_url}{movie['poster_path']}"
+
+    return render(request, 'upcoming_movies.html', {'movies': movies})

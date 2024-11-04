@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 GOOGLE_TRANSLATE_API_KEY = os.getenv('GOOGLE_TRANSLATE_API_KEY', 'AIzaSyCXAjqoTv7w2jCJO2Gb7AwAjmYRviAl3bU')
+TMDB_API_KEY = '13416e4872eea6554281f8c6870faccb'
 
 # Application definition
 

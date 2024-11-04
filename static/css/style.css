@@ -919,6 +919,62 @@ a {
     }
 }
 
+/* Stylizacja podstrony nadchodzących premier */
+.upcoming-premieres-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 1300px;
+}
+
+.upcoming-premiere-card {
+    background-color: #1A242F;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 200px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.upcoming-premiere-card:hover {
+    transform: scale(1.05);
+}
+
+.upcoming-premiere-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 0;
+}
+
+.upcoming-premiere-info {
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 0.9em;
+    text-align: left;
+}
+
+.upcoming-premiere-title {
+    font-size: 1.1em;
+    color: #1E90FF;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.upcoming-premiere-info p {
+    margin: 5px 0;
+}
+
+.upcoming-premiere-label {
+    font-weight: bold;
+    color: #A0A0A0;
+}
+
 
 main {
     text-align: center;
