@@ -72,7 +72,8 @@ def display_movies(request):
 
 def upcoming_movies(request):
     api_key = settings.TMDB_API_KEY
-    url = f'https://api.themoviedb.org/3/movie/upcoming?api_key={api_key}&language=pl-PL'
+    url = f'https://api.themoviedb.org/3/movie/upcoming?api_key={api_key}&language=en-EN&region=PL'
+
     response = requests.get(url)
     movies = response.json().get('results', [])
 
