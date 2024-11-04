@@ -33,10 +33,20 @@
             </a>
         {% endif %}
     </nav>
+           <form method="post" action="{% url 'movie_app:set_language' %}">
+    {% csrf_token %}
+    <select name="language">
+        <option value="en" {% if request.session.language == "en" %}selected{% endif %}>English</option>
+        <option value="pl" {% if request.session.language == "pl" %}selected{% endif %}>Polski</option>
+        <option value="de" {% if request.session.language == "de" %}selected{% endif %}>Deutsch</option>
+    </select>
+    <button type="submit">Zmień język</button>
+</form>
+
+<p>Wybrany język: {{ request.session.language }}</p>
     <div class="top-bar">
         <div class="search-bar">
             <form action="/search" method="get" autocomplete="off">
-                <!--<input type="text" name="q" placeholder="Search..." onkeyup="searchMovies(this.value)">-->
                 <input type="text" id="search-input" name="q" placeholder="Search..." autocomplete="off">
                 <button type="submit">Search</button>
             </form>

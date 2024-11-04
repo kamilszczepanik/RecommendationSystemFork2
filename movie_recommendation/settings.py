@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+GOOGLE_TRANSLATE_API_KEY = os.getenv('GOOGLE_TRANSLATE_API_KEY', 'AIzaSyCXAjqoTv7w2jCJO2Gb7AwAjmYRviAl3bU')
 
 # Application definition
 
@@ -149,11 +150,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',  # Autoryzacja
     'django.contrib.messages.middleware.MessageMiddleware',  # Wiadomości
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'movie_app.translation_middleware.TranslationMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+
 ]

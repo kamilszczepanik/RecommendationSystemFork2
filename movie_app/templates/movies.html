@@ -10,9 +10,9 @@
 <!-- Formularz filtrowania -->
 <form method="GET" action="{% url 'movie_app:display_movies' %}" class="filter-form">
     <div class="form-group">
-        <label for="genre">{% trans "Genre:" %}</label>
+        <label for="genre" class="translatable">{% trans "Genre:" %}</label>
         <select name="genre" id="genre" class="form-input">
-            <option value="">{% trans "Select Genre" %}</option>
+            <option value="" class="translatable">{% trans "Select Genre" %}</option>
             {% for genre in genres %}
                 <option value="{{ genre.display_name }}" {% if request.GET.genre == genre.display_name %}selected{% endif %}>
                     {{ genre.display_name }}
@@ -21,13 +21,13 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="production_year">{% trans "Production Year:" %}</label>
+        <label for="production_year" class="translatable">{% trans "Production Year:" %}</label>
         <input type="number" name="production_year" id="production_year" value="{{ request.GET.production_year }}" class="form-input">
     </div>
     <div class="form-group">
-        <label for="director">{% trans "Director:" %}</label>
+        <label for="director" class="translatable">{% trans "Director:" %}</label>
         <select name="director" id="director" class="form-input">
-            <option value="">{% trans "Select Director" %}</option>
+            <option value="" class="translatable">{% trans "Select Director" %}</option>
             {% for director in directors %}
                 <option value="{{ director.director_id }}" {% if request.GET.director == director.director_id|stringformat:"s" %}selected{% endif %}>
                     {{ director.display_name }}
@@ -35,27 +35,26 @@
             {% endfor %}
         </select>
     </div>
-    <button type="submit" class="btn-filter">{% trans "Filter" %}</button>
+    <button type="submit" class="btn-filter translatable">{% trans "Filter" %}</button>
 </form>
 
 <!-- Formularz sortowania -->
 <form method="GET" action="{% url 'movie_app:display_movies' %}" class="sort-form">
-    <!-- Ukryte pola dla zachowania aktualnych filtrów -->
     <input type="hidden" name="genre" value="{{ request.GET.genre }}">
     <input type="hidden" name="production_year" value="{{ request.GET.production_year }}">
     <input type="hidden" name="director" value="{{ request.GET.director }}">
     <input type="hidden" name="cast" value="{{ request.GET.cast }}">
 
     <div class="form-group">
-        <label for="sort_by">{% trans "Sort by:" %}</label>
+        <label for="sort_by" class="translatable">{% trans "Sort by:" %}</label>
         <select name="sort_by" id="sort_by" class="form-input">
-            <option value="rating_desc" {% if request.GET.sort_by == 'rating_desc' %}selected{% endif %}>{% trans "Rating Descending" %}</option>
-            <option value="rating_asc" {% if request.GET.sort_by == 'rating_asc' %}selected{% endif %}>{% trans "Rating Ascending" %}</option>
-            <option value="votes_desc" {% if request.GET.sort_by == 'votes_desc' %}selected{% endif %}>{% trans "Votes Descending" %}</option>
-            <option value="votes_asc" {% if request.GET.sort_by == 'votes_asc' %}selected{% endif %}>{% trans "Votes Ascending" %}</option>
+            <option value="rating_desc" {% if request.GET.sort_by == 'rating_desc' %}selected{% endif %} class="translatable">{% trans "Rating Descending" %}</option>
+            <option value="rating_asc" {% if request.GET.sort_by == 'rating_asc' %}selected{% endif %} class="translatable">{% trans "Rating Ascending" %}</option>
+            <option value="votes_desc" {% if request.GET.sort_by == 'votes_desc' %}selected{% endif %} class="translatable">{% trans "Votes Descending" %}</option>
+            <option value="votes_asc" {% if request.GET.sort_by == 'votes_asc' %}selected{% endif %} class="translatable">{% trans "Votes Ascending" %}</option>
         </select>
     </div>
-    <button type="submit" class="btn-sort">{% trans "Sort" %}</button>
+    <button type="submit" class="btn-sort translatable">{% trans "Sort" %}</button>
 </form>
 
 
