@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'movie_recommendation_database',
         'USER': 'postgres',
         'PASSWORD': 'ChlopakiTab',
-        'HOST': 'localhost',
+        'HOST': 'localhost', # to make docker work you have to change from 'localhost' to 'db'
         'PORT': '5432',
     }
 }
