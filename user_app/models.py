@@ -32,6 +32,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
     email = models.TextField()
     first_name = models.TextField()
     surname = models.TextField()
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'login'
     REQUIRED_FIELDS = []
@@ -54,18 +56,9 @@ class Users(AbstractBaseUser, PermissionsMixin):
         return True
 
     @property
-    def is_staff(self):
-        return self.user_role == 'admin'
-
-    @property
-    def is_superuser(self):
-        return self.user_role == 'admin'
-
-    @property
     def password(self):
         return bytes(self.password_hash).decode()
 
-    @password.setter
     def set_password(self, raw_password):
         hashed_password = make_password(raw_password)
         self.password_hash = hashed_password.encode()
